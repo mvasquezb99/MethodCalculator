@@ -14,7 +14,12 @@ def home():
 @app.route("/biseccion", methods=["GET", "POST"])  # type: ignore
 def biseccion_get():
     if request.method == "GET":
-        return "<p>Biseccion</p>"
+        fx = "math.exp(-x) + x**2 -13"
+        a = 2
+        b = 4
+        tol = 0.5E-2
+        n_iter = 100
+        return biseccion.bisec(fx, a, b, tol, n_iter)
     else:
         fx = request.get_json()["fx"]
         a = float(request.get_json()["a"])
