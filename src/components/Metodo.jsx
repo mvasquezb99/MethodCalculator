@@ -10,7 +10,7 @@ function Metodo({ method_name }) {
 
     useEffect(() => {
         get_method();
-    })
+    },[])
 
     const { E: Errors, Xm, fxm } = method_data;
 
