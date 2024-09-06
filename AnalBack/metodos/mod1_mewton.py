@@ -3,20 +3,23 @@ from flask import jsonify
 from sympy import *
 
 
-def pf(fx, g, x0, tol, n_iter):
+def mnt(fx, m, x0, tol, n_iter):
     E = []
     Xn = []
     Fn = []
     xn = x0
     x = sp.Symbol("x")
     fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
+    g = sp.diff(fx, x)
+    df = float(sp.N(g.subs(x, x0)))
     c = 0
     err = float(100)
     Fn.append(fe)
     E.append(err)
     Xn.append(xn)
     while err > tol and fe != 0 and c < n_iter:
-        xn = float(sp.N(sp.sympify(g).subs(x, xn)))
+        xn = xn - (m * (fe / df))
+        df = float(sp.N(g.subs(x, xn)))
         fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
         Fn.append(fe)
         Xn.append(xn)

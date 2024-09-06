@@ -1,6 +1,5 @@
 import math
 
-import numpy as np
 from flask import jsonify
 
 
@@ -46,16 +45,36 @@ def bisec(fx, a, b, tol, n_iter):
             E.append(float(err))
             c += 1
         if fxm == 0:
+            msg = (
+                "\nRESULTADO:\n\n\t fxm: "
+                + str(fxm)
+                + " x: "
+                + str(xm)
+                + " E: "
+                + str(err)
+            )
             return jsonify(
                 {
+                    "msg": msg,
+                    "status": 200,
                     "Xm": Xmi,
                     "fxm": Fxmi,
                     "E": E,
                 }
             )
         elif err < tol:
+            msg = (
+                "\nRESULTADO:\n\n\t fxm: "
+                + str(fxm)
+                + " x: "
+                + str(xm)
+                + " E: "
+                + str(err)
+            )
             return jsonify(
                 {
+                    "msg": msg,
+                    "status": 200,
                     "Xm": Xmi,
                     "fxm": Fxmi,
                     "E": E,
@@ -65,6 +84,9 @@ def bisec(fx, a, b, tol, n_iter):
             msg = "Fracaso en " + str(n_iter) + " iteraciones"
             return jsonify(
                 {
+                    "Xm": Xmi,
+                    "fxm": Fxmi,
+                    "E": E,
                     "message": msg,
                     "status": 400,
                 }

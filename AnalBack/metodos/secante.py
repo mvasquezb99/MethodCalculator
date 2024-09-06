@@ -3,28 +3,37 @@ from flask import jsonify
 from sympy import *
 
 
-def pf(fx, g, x0, tol, n_iter):
+def seca(fx, x0, x1, tol, n_iter):
     E = []
     Xn = []
     Fn = []
     xn = x0
     x = sp.Symbol("x")
-    fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
+    f0 = float(sp.N(sp.sympify(fx).subs(x, xn)))
     c = 0
     err = float(100)
-    Fn.append(fe)
+    Fn.append(f0)
     E.append(err)
     Xn.append(xn)
-    while err > tol and fe != 0 and c < n_iter:
-        xn = float(sp.N(sp.sympify(g).subs(x, xn)))
-        fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
-        Fn.append(fe)
+    xn = x1
+    f1 = float(sp.N(sp.sympify(fx).subs(x, xn)))
+    Fn.append(f1)
+    err = abs(x0 - x1)
+    E.append(err)
+    Xn.append(xn)
+    while err > tol and f0 != 0 and f1 != 0 and c < n_iter:
+        xn = xn - ((f1 * (x1 - x0)) / (f1 - f0))
+        x0 = x1
+        x1 = xn
+        f0 = f1
+        f1 = float(sp.N(sp.sympify(fx).subs(x, xn)))
+        Fn.append(f1)
         Xn.append(xn)
         c += 1
-        err = abs(Xn[c] - Xn[c - 1])
+        err = abs(Xn[c + 1] - Xn[c])
         E.append(err)
-    if fe == 0:
-        msg = "\nRESULTADO:\n\n\t fe:", fe, "x: ", xn, "E: ", err, "\n"
+    if f1 == 0:
+        msg = "\nRESULTADO:\n\n\t fe:", f1, "x: ", xn, "E: ", err, "\n"
         return jsonify(
             {
                 "msg": msg,
@@ -35,7 +44,7 @@ def pf(fx, g, x0, tol, n_iter):
             }
         )
     elif err < tol:
-        msg = "\nRESULTADO APROXIMADO:\n\n\t fe:", fe, "x: ", xn, "E: ", err, "\n"
+        msg = "\nRESULTADO APROXIMADO:\n\n\t fe:", f1, "x: ", xn, "E: ", err, "\n"
         return jsonify(
             {
                 "msg": msg,
@@ -56,3 +65,16 @@ def pf(fx, g, x0, tol, n_iter):
                 "status": 400,
             }
         )
+
+
+def main():
+    fx = input("fx: ")
+    x0 = float(input("x0: "))
+    x1 = float(input("x1: "))
+    tol = float(input("tol: "))
+    n_iter = float(input("n_iter: "))
+    seca(fx, x0, x1, tol, n_iter)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,43 +1,61 @@
-import math
+import sympy as sp
+from flask import jsonify
+from sympy import *
 
-import numpy as np
-import pandas as pd
 
-
-def nt(fx, g, x0, tol, n_iter):
+def nt(fx, x0, tol, n_iter):
     E = []
     Xn = []
     Fn = []
-    x = x0
-    fe = eval(fx)
-    df = eval(g)
+    xn = x0
+    x = sp.Symbol("x")
+    fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
+    g = sp.diff(fx, x)
+    df = float(sp.N(g.subs(x, xn)))
     c = 0
     err = float(100)
     Fn.append(fe)
     E.append(err)
-    Xn.append(x)
+    Xn.append(xn)
     while err > tol and fe != 0 and c < n_iter:
-        x = x - fe / df
-        df = eval(g)
-        fe = eval(fx)
+        xn = xn - (fe / df)
+        df = float(sp.N(g.subs(x, xn)))
+        fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
         Fn.append(fe)
-        Xn.append(x)
+        Xn.append(xn)
         c += 1
         err = abs(Xn[c] - Xn[c - 1])
         E.append(err)
     if fe == 0:
-        print("\nRESULTADO:\n\n\t fe:", fe, "x: ", x, "E: ", err, "\n")
-        tabla = [Xn, Fn, E]
-        tabla = np.transpose(tabla)
-        tabla = pd.DataFrame(tabla, columns=["x", "fn", "E"])  # type: ignore
-        tabla.index = np.arange(1, len(tabla) + 1)
-        print(tabla)
+        msg = "\nRESULTADO:\n\n\t fe:", fe, "x: ", xn, "E: ", err, "\n"
+        return jsonify(
+            {
+                "msg": msg,
+                "status": 200,
+                "Xm": Xn,
+                "fxm": Fn,
+                "E": E,
+            }
+        )
     elif err < tol:
-        print("\nRESULTADO:\n\n\t fe:", fe, "x: ", x, "E: ", err, "\n")
-        tabla = [Xn, Fn, E]
-        tabla = np.transpose(tabla)
-        tabla = pd.DataFrame(tabla, columns=["x", "fn", "E"])  # type: ignore
-        tabla.index = np.arange(1, len(tabla) + 1)
-        print(tabla)
+        msg = "\nRESULTADO APROXIMADO:\n\n\t fe:", fe, "x: ", xn, "E: ", err, "\n"
+        return jsonify(
+            {
+                "msg": msg,
+                "status": 200,
+                "Xm": Xn,
+                "fxm": Fn,
+                "E": E,
+            }
+        )
     else:
-        print("Fracaso en", n_iter, "iteraciones")
+        msg = "Fracaso en " + str(n_iter) + " iteraciones"
+        return jsonify(
+            {
+                "Xm": Xn,
+                "fxm": Fn,
+                "E": E,
+                "message": msg,
+                "status": 400,
+            }
+        )

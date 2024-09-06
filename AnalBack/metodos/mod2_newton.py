@@ -3,20 +3,26 @@ from flask import jsonify
 from sympy import *
 
 
-def pf(fx, g, x0, tol, n_iter):
+def mnt(fx, x0, tol, n_iter):
     E = []
     Xn = []
     Fn = []
     xn = x0
     x = sp.Symbol("x")
     fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
+    g1 = sp.diff(fx, x)
+    df1 = float(sp.N(g1.subs(x, x0)))
+    g2 = sp.diff(g1, x)
+    df2 = float(sp.N(g2.subs(x, x0)))
     c = 0
     err = float(100)
     Fn.append(fe)
     E.append(err)
     Xn.append(xn)
     while err > tol and fe != 0 and c < n_iter:
-        xn = float(sp.N(sp.sympify(g).subs(x, xn)))
+        xn = xn - (fe * df1) / (df1**2 - (fe * df2))
+        df1 = float(sp.N(g1.subs(x, xn)))
+        df2 = float(sp.N(g2.subs(x, xn)))
         fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
         Fn.append(fe)
         Xn.append(xn)
@@ -56,3 +62,15 @@ def pf(fx, g, x0, tol, n_iter):
                 "status": 400,
             }
         )
+
+
+def main():
+    fx = input("fx: ")
+    x0 = float(input("x0: "))
+    tol = float(input("tol: "))
+    n_iter = float(input("n_iter: "))
+    mnt(fx, x0, tol, n_iter)
+
+
+if __name__ == "__main__":
+    main()
