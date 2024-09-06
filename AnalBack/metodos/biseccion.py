@@ -1,6 +1,6 @@
-import math
-
+import sympy as sp
 from flask import jsonify
+from sympy import *
 
 
 def bisec(fx, a, b, tol, n_iter):
@@ -8,10 +8,11 @@ def bisec(fx, a, b, tol, n_iter):
     Xmi = []
     Fxmi = []
     c = 0
-    x = a
-    fa = eval(fx)
-    x = b
-    fb = eval(fx)
+    xn = a
+    x = sp.Symbol("x")
+    fa = float(sp.N(sp.sympify(fx).subs(x, xn)))
+    xn = b
+    fb = float(sp.N(sp.sympify(fx).subs(x, xn)))
     if fa == 0:
         print(a, "Es rais de", fx)
         return
@@ -21,25 +22,25 @@ def bisec(fx, a, b, tol, n_iter):
     elif fa * fb < 0:
         xm = (a + b) / 2
         Xmi.append(xm)
-        x = xm
-        fxm = eval(fx)
+        xn = xm
+        fxm = float(sp.N(sp.sympify(fx).subs(x, xn)))
         Fxmi.append(fxm)
         err = float(100)
         E.append(err)
         while E[c] > tol and fxm != 0 and c < n_iter:
             if fxm < 0:
                 a = xm
-                x = a
-                fa = eval(fx)
+                xn = a
+                fa = float(sp.N(sp.sympify(fx).subs(x, xn)))
             else:
                 b = xm
-                x = b
-                fb = eval(fx)
+                xn = b
+                fb = float(sp.N(sp.sympify(fx).subs(x, xn)))
             x_temp = xm
             xm = (a + b) / 2
             Xmi.append(xm)
-            x = xm
-            fxm = eval(fx)
+            xn = xm
+            fxm = float(sp.N(sp.sympify(fx).subs(x, xn)))
             Fxmi.append(fxm)
             err = abs(xm - x_temp)
             E.append(float(err))

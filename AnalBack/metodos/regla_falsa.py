@@ -46,7 +46,15 @@ def regla_falsa(fx, a, b, tol, n_iter):
             E.append(float(err))
             c += 1
         if fxm == 0:
-            msg = "\nRESULTADO:\n\n\t fxm:", fxm, "x: ", xm, "E: ", err, "\n"
+            msg = (
+                "\nRESULTADO:\n\n\t fxm: "
+                + str(fxm)
+                + " x: "
+                + str(xm)
+                + " E: "
+                + str(err)
+                + "\n"
+            )
             return jsonify(
                 {
                     "msg": msg,
@@ -57,7 +65,17 @@ def regla_falsa(fx, a, b, tol, n_iter):
                 }
             )
         elif err < tol:
-            msg = "\nRESULTADO APROXIMADO:\n\n\t fxm:", fxm, "x: ", xm, "E: ", err, "\n"
+
+            msg = (
+                "\nRESULTADO APROXIMADO:\n\n\t fxm: "
+                + str(fxm)
+                + " x: "
+                + str(xm)
+                + " E: "
+                + str(err)
+                + "\n"
+            )
+
             return jsonify(
                 {
                     "msg": msg,
@@ -68,7 +86,7 @@ def regla_falsa(fx, a, b, tol, n_iter):
                 }
             )
         else:
-            msg = "Fracaso en", n_iter, "iteraciones"
+            msg = "Fracaso en " + str(n_iter) + " iteraciones"
             return jsonify(
                 {
                     "Xm": Xmi,
