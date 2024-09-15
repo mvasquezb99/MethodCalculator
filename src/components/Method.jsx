@@ -1,0 +1,32 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import MethodForm from "./MethodForm";
+function Method({ method_name }) {
+    const [method_data, setMethod_data] = useState({});
+
+    const get_method = async () => {
+        const res = await axios.get(`http://localhost:5000/${method_name}`);
+        setMethod_data(res.data);
+    }
+
+    useEffect(() => {
+        get_method();
+    },[])
+
+    return (
+        <main className="w-full h-[76vh] p-6">
+            <h1 className="w-fit text-start text-5xl first-letter:uppercase mb-3">
+                {method_name}
+            </h1>
+            <h2 className="text-2xl text-gray-500 text-opacity-100">Explicación</h2>
+            <p className="mt-3 border-b-2 border-dotted pb-6 w-fit text-justify">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur suscipit corporis, fugit ad nulla reiciendis quaerat expedita similique culpa necessitatibus, inventore doloremque labore illum, commodi incidunt qui excepturi iure exercitationem!
+                Voluptates aliquid nemo temporibus! Quam, amet aliquid. Tenetur harum consequuntur nostrum vitae omnis excepturi animi magnam facere, eum maxime nihil culpa, reprehenderit illum! Necessitatibus incidunt eum, maxime laboriosam sed cumque?
+            </p>
+            <MethodForm method_name = {method_name}/>
+        </main>
+    );
+}
+
+
+export default Method;
