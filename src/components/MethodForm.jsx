@@ -1,34 +1,50 @@
-import React from "react";
+import React,{useState} from "react";
 
-function MethodForm({ handle_submit, method_name }) {
+function MethodForm({method_name, method_obj,put_method}) {
 
+    const [input_data, set_data] = useState(method_obj);
+
+    const update_data = (e) => {
+        set_data((input_data) => {
+            return {
+                ...input_data,
+                [e.target.name]: e.target.value
+            }
+        })
+    }
+
+    const on_submit = (e) => {
+        e.preventDefault();
+        console.log(input_data);
+        put_method(input_data);
+    } 
     return (
-        <div className="w-1/2 h-3/4 flex justify-center items-center mt-6">
-            <div className="rounded-md p-2 border border-[#c2c2c2] ">
-                <form action="" className="flex w-80 h-max justify-start items-start flex-col text-start">
-                    <h1 className="text-center text-xl mb-3">Ingreso de datos</h1>
-                    {
-                        method_name === "biseccion" ? <>
+        <div className="rounded-md p-2 border border-[#c2c2c2] h-fit">
+            <form action="" className="flex w-80 h-fit justify-start items-start flex-col text-start" onSubmit={on_submit}>
+                <h1 className="text-center text-xl mb-3">Ingreso de datos</h1>
+                {
+                    method_name === "biseccion" ? <>
 
-                            <label className="w-full" htmlFor="func">Función</label>
-                            <input className="w-full p-1" type="text" name="func" placeholder="math.exp(-x)+x**2-13" />
+                        <label className="w-full" htmlFor="func">Función</label>
+                        <input className="w-full p-1" type="text" name="func" placeholder="math.exp(-x)+x**2-13" onChange={update_data}/>
 
-                            <label className="w-full" htmlFor="li" >Limite inferior</label>
-                            <input className="w-full p-1" type="text" name="il" id="" placeholder="2" />
+                        <label className="w-full" htmlFor="li" >Limite inferior</label>
+                        <input className="w-full p-1" type="text" name="il" id="" placeholder="2" onChange={update_data}/>
 
-                            <label className="w-full" htmlFor="sl" >Limite superior</label>
-                            <input className="w-full p-1" type="text" name="sl" id="" placeholder="4" />
+                        <label className="w-full" htmlFor="sl" >Limite superior</label>
+                        <input className="w-full p-1" type="text" name="sl" id="" placeholder="4" onChange={update_data}/>
 
-                            <label className="w-full" htmlFor="tol" >Tolerancia</label>
-                            <input className="w-full p-1" type="text" name="tol" id="" placeholder="0.05E-2" />
+                        <label className="w-full" htmlFor="tol" >Tolerancia</label>
+                        <input className="w-full p-1" type="text" name="tol" id="" placeholder="0.05E-2" onChange={update_data}/>
 
-                            <label className="w-full" htmlFor="iter" >Numero de iteraciónes</label>
-                            <input className="w-full p-1" type="text" name="iter" id="" placeholder="100" />
-                        </> : ''
-                    }
-                </form>
-            </div>
+                        <label className="w-full" htmlFor="iter" >Numero de iteraciónes</label>
+                        <input className="w-full p-1" type="text" name="iter" id="" placeholder="100" onChange={update_data}/>
+                        <button type="submit" className="bg-blue-400 p-1 rounded-lg w-16 mt-3">Send!</button>
+                    </> : ''
+                }
+            </form>
         </div>
+
     )
 }
 
