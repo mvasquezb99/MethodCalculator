@@ -3,7 +3,7 @@ import React from "react";
 
 function Table() {
     return (
-        <div className="w-1/2 h-96 border border-blue-700 rounded-md p-2 overflow-y-scroll">
+        <div className="w-1/2 h-96 border border-[#c2c2c2] rounded-md p-2 overflow-y-scroll">
             <table className="table-fixed w-full h-full text-center ">
                 <thead>
                     <tr>

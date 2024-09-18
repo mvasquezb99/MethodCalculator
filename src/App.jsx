@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SideBar from './components/SideBar'
 function App() {
-  const method_list = ['Biseccion', 'Punto fijo', 'Regla falsa', 'Newton'];
+  const method_list = [['Biseccion', 'biseccion'], ['Punto fijo','puntoFijo'], ['Regla falsa','reglaFalsa'], ['Newton','Newton']];
   return (
     <main id="content_wrapper" className='flex h-full w-full flex-col items-center'>
       {/* Navbar component */}
@@ -14,8 +14,9 @@ function App() {
         <SideBar method_list={method_list} />
         {/* Method Component */}
         <Routes>
-          <Route path='/' element={<h1 className='text-center w-full h-fit text-3xl'>Analisis numerico</h1>} />
-          <Route path='/biseccion' element={<Method method_name={"biseccion"} />} />
+          <Route exact path='/' element={<h1 className='text-center w-full h-fit text-3xl'>Analisis numerico</h1>} />
+          <Route exact path={`/${method_list[0][1]}`} element={<Method method_route={method_list[0][1]} method_name={method_list[0][0]}/>} />
+          <Route exact path={`/${method_list[1][1]}`} element={<Method method_route={method_list[1][1]} method_name={method_list[1][0]}/>}/>
         </Routes>
       </section>
       {/* Switch of routes for each method*/}

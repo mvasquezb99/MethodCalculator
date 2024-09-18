@@ -12,7 +12,8 @@ function MethodForm({method_name, method_obj,put_method}) {
             }
         })
     }
-
+    console.log(method_name);
+    
     const on_submit = (e) => {
         e.preventDefault();
         console.log(input_data);
@@ -21,9 +22,9 @@ function MethodForm({method_name, method_obj,put_method}) {
     return (
         <div className="rounded-md p-2 border border-[#c2c2c2] h-fit">
             <form action="" className="flex w-80 h-fit justify-start items-start flex-col text-start" onSubmit={on_submit}>
-                <h1 className="text-center text-xl mb-3">Ingreso de datos</h1>
+                <h1 className="text-start text-xl mb-3 border-b border-b-[#c2c2c2] border-dotted w-full pb-2 ">Ingreso de datos</h1>
                 {
-                    method_name === "biseccion" ? <>
+                    method_name === "Biseccion" ? <>
 
                         <label className="w-full" htmlFor="func">Función</label>
                         <input className="w-full p-1" type="text" name="func" placeholder="math.exp(-x)+x**2-13" onChange={update_data}/>
@@ -39,7 +40,7 @@ function MethodForm({method_name, method_obj,put_method}) {
 
                         <label className="w-full" htmlFor="iter" >Numero de iteraciónes</label>
                         <input className="w-full p-1" type="text" name="iter" id="" placeholder="100" onChange={update_data}/>
-                        <button type="submit" className="bg-blue-400 p-1 rounded-lg w-16 mt-3">Send!</button>
+                        <button type="submit" className="bg-[#00509d] p-1 rounded-lg w-16 mt-3 text-white">Send!</button>
                     </> : ''
                 }
             </form>
