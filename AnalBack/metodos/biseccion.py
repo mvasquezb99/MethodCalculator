@@ -46,14 +46,7 @@ def bisec(fx, a, b, tol, n_iter):
             E.append(float(err))
             c += 1
         if fxm == 0:
-            msg = (
-                "\nRESULTADO:\n\n\t fxm: "
-                + str(fxm)
-                + " x: "
-                + str(xm)
-                + " E: "
-                + str(err)
-            )
+            msg = "RESULTADO: fxm: " + str(fxm) + " x: " + str(xm) + " E: " + str(err)
             return jsonify(
                 {
                     "msg": msg,
@@ -64,14 +57,7 @@ def bisec(fx, a, b, tol, n_iter):
                 }
             )
         elif err < tol:
-            msg = (
-                "\nRESULTADO:\n\n\t fxm: "
-                + str(fxm)
-                + " x: "
-                + str(xm)
-                + " E: "
-                + str(err)
-            )
+            msg = "RESULTADO: fxm: " + str(fxm) + " x: " + str(xm) + " E: " + str(err)
             return jsonify(
                 {
                     "msg": msg,
