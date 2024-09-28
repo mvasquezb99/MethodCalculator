@@ -4,7 +4,14 @@ import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SideBar from './components/SideBar'
 function App() {
-  const method_list = [['Biseccion', 'biseccion'], ['Punto fijo','puntoFijo'], ['Regla falsa','reglaFalsa'], ['Newton','newton']]; // Refactorizar a objeto, soy una gueva 
+  const method_list = [['Biseccion', 'biseccion'],
+  ['Punto fijo', 'puntoFijo'],
+  ['Regla falsa', 'reglaFalsa'],
+  ['Newton', 'newton'],
+  ['Secante', 'secante'],
+  ['Newton M1', 'newton_mod1'],
+  ['Newton M2', 'newton_mod2'],
+  ]; // Refactorizar a objeto, soy una gueva 
   return (
     <main id="content_wrapper" className='flex h-full w-full flex-col items-center'>
       {/* Navbar component */}
@@ -15,10 +22,11 @@ function App() {
         {/* Method Component */}
         <Routes>
           <Route exact path='/' element={<h1 className='text-center w-full h-fit text-3xl'>Analisis numerico</h1>} />
-          <Route exact path={`/${method_list[0][1]}`} element={<Method method_route={method_list[0][1]} method_name={method_list[0][0]}/>} />
-          <Route exact path={`/${method_list[1][1]}`} element={<Method method_route={method_list[1][1]} method_name={method_list[1][0]}/>}/>
-          <Route exact path={`/${method_list[2][1]}`} element={<Method method_route={method_list[2][1]} method_name={method_list[2][0]}/>}/>
-          <Route exact path={`/${method_list[3][1]}`} element={<Method method_route={method_list[3][1]} method_name={method_list[3][0]}/>}/>
+          {
+            method_list.map((element) => (
+              <Route exact path={`/${element[1]}`} element={<Method method_route={element[1]} method_name={element[0]} />} />
+            ))
+          }
         </Routes>
       </section>
       {/* Switch of routes for each method*/}
