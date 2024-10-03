@@ -13,7 +13,6 @@ def bisec2(fx, a, b, tol, n_iter):
     fa = float(sp.N(sp.sympify(fx).subs(x, xn)))
     xn = b
     fb = float(sp.N(sp.sympify(fx).subs(x, xn)))
-    tolerancia = 5 * 10**(-tol)
     if fa == 0:
         print(a, "Es rais de", fx)
         return
@@ -26,9 +25,9 @@ def bisec2(fx, a, b, tol, n_iter):
         xn = xm
         fxm = float(sp.N(sp.sympify(fx).subs(x, xn)))
         Fxmi.append(fxm)
-        err_rel = float('inf')
+        err_rel = float(100)
         E.append(err_rel)
-        while E[c] > tolerancia and fxm != 0 and c < n_iter:
+        while E[c] > tol and fxm != 0 and c < n_iter:
             if fxm < 0:
                 a = xm
                 xn = a
@@ -37,19 +36,19 @@ def bisec2(fx, a, b, tol, n_iter):
                 b = xm
                 xn = b
                 fb = float(sp.N(sp.sympify(fx).subs(x, xn)))
-                
+
             xm_temp = xm
             xm = (a + b) / 2
             Xmi.append(xm)
             xn = xm
             fxm = float(sp.N(sp.sympify(fx).subs(x, xn)))
             Fxmi.append(fxm)
-            
+
             if xm != 0:
                 err_rel = abs((xm - xm_temp) / xm)
             else:
-                err_rel = abs(xm - xm_temp) # No debería pasar
-                
+                err_rel = abs(xm - xm_temp)  # No debería pasar
+
             E.append(float(err_rel))
             c += 1
         if fxm == 0:
@@ -70,7 +69,7 @@ def bisec2(fx, a, b, tol, n_iter):
                     "ε": E,
                 }
             )
-        elif err_rel < tolerancia:
+        elif err_rel < tol:
             msg = (
                 "\nRESULTADO:\n\n\t fxm: "
                 + str(fxm)
