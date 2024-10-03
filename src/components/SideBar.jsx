@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 function SideBar({ method_list }) {
+
     return (
         <aside className="w-1/6 h-[93vh] flex flex-col pt-8 p-4 border-r-2 border-dotted border-[#c2c2c2]">
             {

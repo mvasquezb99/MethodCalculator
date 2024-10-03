@@ -16,7 +16,7 @@ function MethodForm({ method_obj, put_method }) {
         e.preventDefault();
         put_method(input_data);
     }
-
+    
     return (
         <div className="rounded-md p-2 border border-[#c2c2c2] h-96">
             <form action="" className="flex w-80 h-full justify-start items-start flex-col text-start" onSubmit={on_submit}>
