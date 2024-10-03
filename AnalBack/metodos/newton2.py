@@ -3,7 +3,7 @@ from flask import jsonify
 from sympy import *
 
 
-def nt(fx, x0, tol, n_iter):
+def nt2(fx, x0, tol, n_iter):
     E = []
     Xn = []
     Fn = []
@@ -13,28 +13,28 @@ def nt(fx, x0, tol, n_iter):
     g = sp.diff(fx, x)
     df = float(sp.N(g.subs(x, xn)))
     c = 0
-    tolerancia = 5 * 10**(-tol)
-    err_rel = float('inf')
+    # tolerancia = 5 * 10 ** (-tol)
+    err_rel = float(100)
     Fn.append(fe)
     E.append(err_rel)
     Xn.append(xn)
-    while err_rel > tolerancia and fe != 0 and c < n_iter:
+    while err_rel > tol and fe != 0 and c < n_iter:
         xn_new = xn - (fe / df)
         df = float(sp.N(g.subs(x, xn_new)))
         fe = float(sp.N(sp.sympify(fx).subs(x, xn_new)))
         Fn.append(fe)
         Xn.append(xn_new)
         c += 1
-        
+
         if xn_new != 0:
-            err_rel = abs(xn_new - xn) / abs(xn_new) 
+            err_rel = abs(xn_new - xn) / abs(xn_new)
         else:
-            err_rel = abs(xn_new - xn) # No deberia pasar
-            
+            err_rel = abs(xn_new - xn)  # No deberia pasar
+
         E.append(err_rel)
-        
-        xn = xn_new 
-        
+
+        xn = xn_new
+
     if fe == 0:
         msg = "\nRESULTADO:\n\n\t fe:", fe, "x: ", xn, "ε: ", err_rel, "\n"
         return jsonify(
@@ -46,7 +46,7 @@ def nt(fx, x0, tol, n_iter):
                 "ε": E,
             }
         )
-    elif err_rel < tolerancia:
+    elif err_rel < tol:
         msg = "\nRESULTADO APROXIMADO:\n\n\t fe:", fe, "x: ", xn, "ε: ", err_rel, "\n"
         return jsonify(
             {
