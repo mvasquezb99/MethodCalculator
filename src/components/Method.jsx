@@ -27,7 +27,7 @@ function Method({ method_route, method_name }) {
                     mode: 'preserveX',
                     width: 500,
                     height: 300,
-                    mathBounds: { left: -5, right: 5 } 
+                    mathBounds: { left: ans.data.Xm[ans.data.Xm.length - 1] -5, right: ans.data.Xm[ans.data.Xm.length - 1] + 5 } 
                 },
                 (data) => setImageSrc(data) 
             );
