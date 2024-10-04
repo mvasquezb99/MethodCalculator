@@ -22,9 +22,9 @@ def biseccion_route():
                 "fx": "",
                 "a": "",
                 "b": "",
-                "use_cs": "",  # if 1 then use relative error
                 "tol": "",
                 "n_iter": "",
+                "use_cs": "",  # if 1 then use relative error
             }
         )
     else:
@@ -48,9 +48,9 @@ def regla_falsa_route():
                 "fx": "",
                 "a": "",
                 "b": "",
-                "use_cs": "",  # if 1 then use relative error
                 "tol": "",
                 "n_iter": "",
+                "use_cs": "",  # if 1 then use relative error
             }
         )
     else:
@@ -74,9 +74,9 @@ def punto_fijo_route():
                 "fx": "",
                 "g": "",
                 "x0": "",
-                "use_cs": "",  # if 1 then use relative error
                 "tol": "",
                 "n_iter": "",
+                "use_cs": "",  # if 1 then use relative error
             }
         )
     else:
@@ -98,9 +98,9 @@ def newton_route():
             {
                 "fx": "",
                 "x0": "",
-                "use_cs": "",  # if 1 then use relative error
                 "tol": "",
                 "n_iter": "",
+                "use_cs": "",  # if 1 then use relative error
             }
         )
     else:
@@ -122,9 +122,9 @@ def secante_route():
                 "fx": "",
                 "x0": "",
                 "x1": "",
-                "use_cs": "",  # if 1 then use relative error
                 "tol": "",
                 "n_iter": "",
+                "use_cs": "",  # if 1 then use relative error
             }
         )
     else:
@@ -148,9 +148,9 @@ def newton_mod1_route():
                 "fx": "",
                 "x0": "",
                 "m": "",
-                "use_cs": "",  # if 1 then use relative error
                 "tol": "",
                 "n_iter": "",
+                "use_cs": "",  # if 1 then use relative error
             }
         )
     else:
@@ -173,8 +173,8 @@ def newton_mod2_route():
                 "fx": "",
                 "x0": "",
                 "tol": "",
-                "use_cs": "",  # if 1 then use relative error
                 "n_iter": "",
+                "use_cs": "",  # if 1 then use relative error
             }
         )
     else:
@@ -196,9 +196,9 @@ def mat_jacobi_route():
                 "A": "",
                 "b": "",
                 "x0": "",
-                "use_cs": "",  # if 1 then use relative error
                 "tol": "",
                 "n_iter": "",
+                "use_cs": "",  # if 1 then use relative error
             }
         )
     else:
@@ -221,9 +221,9 @@ def mat_scidel_route():
                 "A": "",
                 "b": "",
                 "x0": "",
-                "use_cs": "",  # if 1 then use relative error
                 "tol": "",
                 "n_iter": "",
+                "use_cs": "",  # if 1 then use relative error
             }
         )
     else:
