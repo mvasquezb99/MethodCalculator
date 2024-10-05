@@ -1,9 +1,22 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from metodos import (biseccion, biseccion2, mat_jacobi, mat_jacobi2,
-                     mat_scidel, mat_scidel2, mod1_newton, mod2_newton, newton,
-                     newton2, punto_fijo, punto_fijo2, regla_falsa,
-                     regla_falsa2, secante)
+from metodos import (
+    biseccion,
+    biseccion2,
+    mat_jacobi,
+    mat_jacobi2,
+    mat_scidel,
+    mat_scidel2,
+    mod1_newton,
+    mod2_newton,
+    newton,
+    newton2,
+    punto_fijo,
+    punto_fijo2,
+    regla_falsa,
+    regla_falsa2,
+    secante,
+)
 
 app = Flask(__name__)
 cors = CORS(app, origins="*")
@@ -33,7 +46,7 @@ def biseccion_route():
         b = float(request.get_json()["input"]["b"])
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
-        if request.get_json()["input"]["use_cs"] == 1:
+        if request.get_json()["input"]["use_cs"] == "1":
             result = biseccion.bisec(fx, a, b, tol, n_iter)
         else:
             result = biseccion2.bisec2(fx, a, b, tol, n_iter)
@@ -59,7 +72,7 @@ def regla_falsa_route():
         b = float(request.get_json()["input"]["b"])
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
-        if request.get_json()["input"]["use_cs"] == 1:
+        if request.get_json()["input"]["use_cs"] == "1":
             return regla_falsa.regla_falsa(fx, a, b, tol, n_iter)
         else:
             return regla_falsa2.regla_falsa2(fx, a, b, tol, n_iter)
@@ -85,7 +98,7 @@ def punto_fijo_route():
         x0 = float(request.get_json()["input"]["x0"])
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
-        if request.get_json()["input"]["use_cs"] == 1:
+        if request.get_json()["input"]["use_cs"] == "1":
             return punto_fijo2.pf2(fx, g, x0, tol, n_iter)
         else:
             return punto_fijo.pf(fx, g, x0, tol, n_iter)
@@ -108,7 +121,7 @@ def newton_route():
         x0 = float(request.get_json()["input"]["x0"])
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
-        if request.get_json()["input"]["use_cs"] == 1:
+        if request.get_json()["input"]["use_cs"] == "1":
             return newton2.nt2(fx, x0, tol, n_iter)
         else:
             return newton.nt(fx, x0, tol, n_iter)
@@ -133,7 +146,7 @@ def secante_route():
         x1 = float(request.get_json()["input"]["x1"])
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
-        if request.get_json()["input"]["use_cs"] == 1:
+        if request.get_json()["input"]["use_cs"] == "1":
             return secante.seca(
                 fx, x0, x1, tol, n_iter
             )  # TODO: cambiar por secante con error relativo
@@ -159,7 +172,7 @@ def newton_mod1_route():
         m = float(request.get_json()["input"]["m"])
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
-        if request.get_json()["input"]["use_cs"] == 1:
+        if request.get_json()["input"]["use_cs"] == "1":
             return mod1_newton.mnt(fx, m, x0, tol, n_iter)
         else:
             return mod1_newton.mnt(fx, m, x0, tol, n_iter)
@@ -182,7 +195,7 @@ def newton_mod2_route():
         x0 = float(request.get_json()["input"]["x0"])
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
-        if request.get_json()["input"]["use_cs"] == 1:
+        if request.get_json()["input"]["use_cs"] == "1":
             return mod2_newton.mnt(fx, x0, tol, n_iter)
         else:
             return mod2_newton.mnt(fx, x0, tol, n_iter)
@@ -207,7 +220,7 @@ def mat_jacobi_route():
         x0 = request.get_json()["input"]["x0"]
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
-        if request.get_json()["input"]["use_cs"] == 1:
+        if request.get_json()["input"]["use_cs"] == "1":
             return mat_jacobi2.mat_jacobi2(A, b, x0, tol, n_iter)
         else:
             return mat_jacobi.mat_jacobi(A, b, x0, tol, n_iter)
@@ -232,7 +245,7 @@ def mat_scidel_route():
         x0 = request.get_json()["input"]["x0"]
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
-        if request.get_json()["input"]["use_cs"] == 1:
+        if request.get_json()["input"]["use_cs"] == "1":
             return mat_scidel2.mat_scidel2(A, b, x0, tol, n_iter)
         else:
             return mat_scidel.mat_scidel(A, b, x0, tol, n_iter)
