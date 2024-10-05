@@ -46,7 +46,14 @@ function InputGroup({ method_obj, update_data }) {
                 inputs.map((key) => (
                     <>
                         <label className="w-full" htmlFor={key}>{get_label(key,true)}</label>
-                        <input className={`${key === "use_cs" ? "w-fit ml-[1px]" : "w-full"} p-1 border border-[#c2c2c2] rounded-lg`} type={type} name={key} placeholder={get_label(key,false)} onChange={update_data} />
+                        <input 
+                            className={`${key === "use_cs" ? "w-fit ml-[1px]" : "w-full"} p-1 border border-[#c2c2c2] rounded-lg`} 
+                            type={type} 
+                            name={key} 
+                            placeholder={get_label(key,false)} 
+                            onChange={update_data} 
+                            required
+                        />
                     </>
                 ))
             }

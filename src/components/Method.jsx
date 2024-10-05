@@ -4,7 +4,7 @@ import MethodForm from "./MethodForm";
 import Table from "./Table";
 import { parse, all, create, log } from 'mathjs';
 
-function Method({ method_route, method_name }) {
+function Method({ method_route, method_name, get_active_method}) {
     const [method_data, setMethod_data] = useState({});
     const [method_answer, setMethod_answer] = useState(undefined);
     const [calculator, set_calculator] = useState(undefined);
@@ -71,7 +71,12 @@ function Method({ method_route, method_name }) {
         },svg_cb);
     } 
 
+    const handle_active_method = () => {
+        get_active_method(method_name);
+    }
+
     useEffect(() => {
+        handle_active_method();
         get_method();
         if (document.getElementById("calculator") !== null) {
             destroy_desmos()
@@ -83,7 +88,7 @@ function Method({ method_route, method_name }) {
 
 
     return (
-        <main className="w-full h-[93vh] p-6 overflow-y-scroll">
+        <main className="w-full h-screen p-6 overflow-y-scroll">
             <h1 className="w-fit text-start text-5xl mb-3 text-[#00509d]">
                 {method_name}
             </h1>
@@ -95,7 +100,7 @@ function Method({ method_route, method_name }) {
             <h2 className="text-2xl text-gray-500 text-opacity-100 mt-3">Calculadora</h2>
             <section className="w-full h-[51vh] flex mt-4 pb-4 justify-evenly border-b-2 border-dotted">
                 <MethodForm method_obj={method_data} put_method={put_method} />
-                <Table data={method_answer} method_name={method_name} />
+                <Table data={method_answer} />
             </section>
             <section className="w-full h-[93vh] flex flex-col mt-3 justify-start items-start ">
                 <div id='calculatorWrapper' className="h-fit w-full flex flex-col items-start justify-start">

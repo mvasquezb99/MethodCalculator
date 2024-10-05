@@ -43,7 +43,7 @@ def nt2(fx, x0, tol, n_iter):
                 "status": 200,
                 "Xm": Xn,
                 "fxm": Fn,
-                "ε": E,
+                "E": E,
             }
         )
     elif err_rel < tol:
@@ -54,7 +54,7 @@ def nt2(fx, x0, tol, n_iter):
                 "status": 200,
                 "Xm": Xn,
                 "fxm": Fn,
-                "ε": E,
+                "E": E,
             }
         )
     else:
@@ -63,7 +63,7 @@ def nt2(fx, x0, tol, n_iter):
             {
                 "Xm": Xn,
                 "fxm": Fn,
-                "ε": E,
+                "E": E,
                 "message": msg,
                 "status": 400,
             }

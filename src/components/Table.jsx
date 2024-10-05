@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 
 
-function Table({ data, method_name }) {
+function Table({ data }) {
     console.log(data);
     
     return (
-        <div className="w-1/2 h-96 border border-[#c2c2c2] rounded-md p-2 overflow-y-scroll">
+        <div className="w-1/2 h-[425px] border border-[#c2c2c2] rounded-md p-2 overflow-y-scroll">
             {
                 data !== undefined ?
                     <table className="table-fixed w-full h-full">
                         <thead className="border-b border-dotted border-[#c2c2c2]">
                             <tr>
                                 <th className="text-start">Evaluaciones f(x)</th>
-                                <th className="text-start ">Valores de Xn</th>
-                                <th className="text-start ">Error absoluto</th>
+                                <th className="text-start">Valores de Xn</th>
+                                <th className="text-start">Error absoluto</th>
                             </tr>
                         </thead>
                         <tbody>
