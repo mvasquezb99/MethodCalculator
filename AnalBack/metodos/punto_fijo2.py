@@ -32,25 +32,25 @@ def pf2(fx, g, x0, tol, n_iter):
         xn = xn_new
 
     if fe == 0:
-        msg = "\nRESULTADO:\n\n\t fe:", fe, "x: ", xn, "E: ", err_rel, "\n"
+        msg = "\nRESULTADO:\n\n\t fe:", fe, "x: ", xn, "Er: ", err_rel, "\n"
         return jsonify(
             {
                 "msg": msg,
                 "status": 200,
                 "Xm": Xn,
                 "fxm": Fn,
-                "ε": E,
+                "E": E,
             }
         )
     elif err_rel < tol:
-        msg = "\nRESULTADO APROXIMADO:\n\n\t fe:", fe, "x: ", xn, "ε: ", err_rel, "\n"
+        msg = "\nRESULTADO APROXIMADO:\n\n\t fe:", fe, "x: ", xn, "Er: ", err_rel, "\n"
         return jsonify(
             {
                 "msg": msg,
                 "status": 200,
                 "Xm": Xn,
                 "fxm": Fn,
-                "ε": E,
+                "E": E,
             }
         )
     else:
@@ -59,7 +59,7 @@ def pf2(fx, g, x0, tol, n_iter):
             {
                 "Xm": Xn,
                 "fxm": Fn,
-                "ε": E,
+                "E": E,
                 "message": msg,
                 "status": 400,
             }

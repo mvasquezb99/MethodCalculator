@@ -62,15 +62,3 @@ def mnt(fx, x0, tol, n_iter):
                 "status": 400,
             }
         )
-
-
-def main():
-    fx = input("fx: ")
-    x0 = float(input("x0: "))
-    tol = float(input("tol: "))
-    n_iter = float(input("n_iter: "))
-    mnt(fx, x0, tol, n_iter)
-
-
-if __name__ == "__main__":
-    main()

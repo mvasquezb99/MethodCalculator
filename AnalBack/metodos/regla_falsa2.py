@@ -56,7 +56,7 @@ def regla_falsa2(fx, a, b, tol, n_iter):
                 + str(fxm)
                 + " x: "
                 + str(xm)
-                + " ε: "
+                + " E: "
                 + str(err_rel)
                 + "\n"
             )
@@ -66,7 +66,7 @@ def regla_falsa2(fx, a, b, tol, n_iter):
                     "status": 200,
                     "Xm": Xmi,
                     "fxm": Fxmi,
-                    "ε": E,
+                    "E": E,
                 }
             )
         elif err_rel < tol:
@@ -76,7 +76,7 @@ def regla_falsa2(fx, a, b, tol, n_iter):
                 + str(fxm)
                 + " x: "
                 + str(xm)
-                + " ε: "
+                + " E: "
                 + str(err_rel)
                 + "\n"
             )
@@ -87,7 +87,7 @@ def regla_falsa2(fx, a, b, tol, n_iter):
                     "status": 200,
                     "Xm": Xmi,
                     "fxm": Fxmi,
-                    "ε": E,
+                    "E": E,
                 }
             )
         else:
@@ -96,7 +96,7 @@ def regla_falsa2(fx, a, b, tol, n_iter):
                 {
                     "Xm": Xmi,
                     "fxm": Fxmi,
-                    "ε": E,
+                    "E": E,
                     "message": msg,
                     "status": 400,
                 }
