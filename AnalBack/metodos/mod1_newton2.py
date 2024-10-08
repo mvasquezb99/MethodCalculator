@@ -3,55 +3,54 @@ from flask import jsonify
 from sympy import *
 
 
-def seca(fx, x0, x1, tol, n_iter):
+def mnt(fx, m, x0, tol, n_iter):
     E = []
+    Er = []
     Xn = []
     Fn = []
     xn = x0
     x = sp.Symbol("x")
-    f0 = float(sp.N(sp.sympify(fx).subs(x, xn)))
+    fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
+    g = sp.diff(fx, x)
+    df = float(sp.N(g.subs(x, x0)))
     c = 0
     err = float(100)
-    Fn.append(f0)
+    errR = float(100)
+    Fn.append(fe)
     E.append(err)
+    Er.append(err)
     Xn.append(xn)
-    xn = x1
-    f1 = float(sp.N(sp.sympify(fx).subs(x, xn)))
-    Fn.append(f1)
-    err = abs(x0 - x1)
-    E.append(err)
-    Xn.append(xn)
-    while err > tol and f0 != 0 and f1 != 0 and c < n_iter:
-        xn = xn - ((f1 * (x1 - x0)) / (f1 - f0))
-        x0 = x1
-        x1 = xn
-        f0 = f1
-        f1 = float(sp.N(sp.sympify(fx).subs(x, xn)))
-        Fn.append(f1)
+    while errR > tol and fe != 0 and c < n_iter:
+        xn = xn - (m * (fe / df))
+        df = float(sp.N(g.subs(x, xn)))
+        fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
+        Fn.append(fe)
         Xn.append(xn)
         c += 1
-        err = abs(Xn[c + 1] - Xn[c])
+        err = abs(Xn[c] - Xn[c - 1])
+        errR = abs(err / xn)
+        Er.append(errR)
         E.append(err)
-    if f1 == 0:
-        msg = "\nRESULTADO:\n\n\t fe:", f1, "x: ", xn, "E: ", err, "\n"
+    if fe == 0:
+        msg = "\nRESULTADO:\n\n\t fe:", fe, "x: ", xn, "Er: ", errR, "\n"
         return jsonify(
             {
                 "msg": msg,
                 "status": 200,
                 "Xm": Xn,
                 "fxm": Fn,
-                "E": E,
+                "E": Er,
             }
         )
     elif err < tol:
-        msg = "\nRESULTADO APROXIMADO:\n\n\t fe:", f1, "x: ", xn, "E: ", err, "\n"
+        msg = "\nRESULTADO APROXIMADO:\n\n\t fe:", fe, "x: ", xn, "Er: ", err, "\n"
         return jsonify(
             {
                 "msg": msg,
                 "status": 200,
                 "Xm": Xn,
                 "fxm": Fn,
-                "E": E,
+                "E": Er,
             }
         )
     else:
@@ -60,7 +59,7 @@ def seca(fx, x0, x1, tol, n_iter):
             {
                 "Xm": Xn,
                 "fxm": Fn,
-                "E": E,
+                "E": Er,
                 "message": msg,
                 "status": 400,
             }

@@ -8,7 +8,9 @@ from metodos import (
     mat_scidel,
     mat_scidel2,
     mod1_newton,
+    mod1_newton2,
     mod2_newton,
+    mod2_newton2,
     newton,
     newton2,
     punto_fijo,
@@ -16,6 +18,7 @@ from metodos import (
     regla_falsa,
     regla_falsa2,
     secante,
+    secante2,
 )
 
 app = Flask(__name__)
@@ -147,9 +150,7 @@ def secante_route():
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
         if request.get_json()["input"]["use_cs"] == "1":
-            return secante.seca(
-                fx, x0, x1, tol, n_iter
-            )  # TODO: cambiar por secante con error relativo
+            return secante2.seca2(fx, x0, x1, tol, n_iter)
         return secante.seca(fx, x0, x1, tol, n_iter)
 
 
@@ -173,7 +174,7 @@ def newton_mod1_route():
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
         if request.get_json()["input"]["use_cs"] == "1":
-            return mod1_newton.mnt(fx, m, x0, tol, n_iter)
+            return mod1_newton2.mnt(fx, m, x0, tol, n_iter)
         else:
             return mod1_newton.mnt(fx, m, x0, tol, n_iter)
 
@@ -196,7 +197,7 @@ def newton_mod2_route():
         tol = float(request.get_json()["input"]["tol"])
         n_iter = float(request.get_json()["input"]["n_iter"])
         if request.get_json()["input"]["use_cs"] == "1":
-            return mod2_newton.mnt(fx, x0, tol, n_iter)
+            return mod2_newton2.mnt(fx, x0, tol, n_iter)
         else:
             return mod2_newton.mnt(fx, x0, tol, n_iter)
 

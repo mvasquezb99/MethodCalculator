@@ -57,7 +57,7 @@ def bisec2(fx, a, b, tol, n_iter):
                 + str(fxm)
                 + " x: "
                 + str(xm)
-                + " ε: "
+                + " Er: "
                 + str(err_rel)
             )
             return jsonify(
@@ -66,7 +66,7 @@ def bisec2(fx, a, b, tol, n_iter):
                     "status": 200,
                     "Xm": Xmi,
                     "fxm": Fxmi,
-                    "ε": E,
+                    "E": E,
                 }
             )
         elif err_rel < tol:
@@ -75,7 +75,7 @@ def bisec2(fx, a, b, tol, n_iter):
                 + str(fxm)
                 + " x: "
                 + str(xm)
-                + " ε: "
+                + " Er: "
                 + str(err_rel)
             )
             return jsonify(
@@ -84,7 +84,7 @@ def bisec2(fx, a, b, tol, n_iter):
                     "status": 200,
                     "Xm": Xmi,
                     "fxm": Fxmi,
-                    "ε": E,
+                    "E": E,
                 }
             )
         else:
