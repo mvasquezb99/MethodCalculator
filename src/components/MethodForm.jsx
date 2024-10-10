@@ -18,12 +18,12 @@ function MethodForm({ method_obj, put_method }) {
     }
 
     return (
-        <div className="rounded-md p-2 border border-[#c2c2c2] h-96">
+        <div className="rounded-md p-2 border border-[#c2c2c2] h-fit">
             <form action="" className="flex w-80 h-full justify-start items-start flex-col text-start" onSubmit={on_submit}>
                 <h1 className="text-start text-xl mb-3 border-b border-b-[#c2c2c2] border-dotted w-full">Ingreso de datos</h1>
                 <InputGroup method_obj={method_obj} update_data={update_data} />
                 <div className="w-full h-full flex items-end">
-                    <button type="submit" className="bg-[#00509d] p-1 rounded-lg w-20 mt-1 text-white">Enviar!</button>
+                    <button type="submit" className="bg-[#00509d] p-1 rounded-lg w-20 mt-2 text-white">Enviar!</button>
                 </div>
             </form>
         </div>
