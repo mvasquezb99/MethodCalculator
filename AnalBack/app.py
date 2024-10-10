@@ -1,9 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from metodos import (biseccion, biseccion2, mat_jacobi, mat_jacobi2,
-                     mat_scidel, mat_scidel2, mod1_newton, mod1_newton2,
-                     mod2_newton, mod2_newton2, newton, newton2, punto_fijo,
-                     punto_fijo2, regla_falsa, regla_falsa2, secante, secante2)
+                     mat_scidel, mat_scidel2, mat_sor, mat_sor2, mod1_newton,
+                     mod1_newton2, mod2_newton, mod2_newton2, newton, newton2,
+                     punto_fijo, punto_fijo2, regla_falsa, regla_falsa2,
+                     secante, secante2)
 
 app = Flask(__name__)
 cors = CORS(app, origins="*")
@@ -245,6 +246,34 @@ def mat_scidel_route():
             return mat_scidel2.mat_scidel2(A, b, x0, tol, n_iter)
         else:
             return mat_scidel.mat_scidel(A, b, x0, tol, n_iter)
+
+
+@app.route("/mat_sor", methods=["GET", "POST"])
+def mat_sor_route():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "A": "",
+                "b": "",
+                "x0": "",
+                "w": "",
+                "use_cs": "",  # if 1 then use relative error
+                "tol": "",
+                "n_iter": "",
+                "explicacion": "El método de Gauss-Seidel relajado o SOR (Successive Over-Relaxation) es una mejora del método de Gauss-Seidel para acelerar su convergencia mediante la introducción de un factor de relajación ω. Este factor ajusta cuánto de la nueva aproximación calculada en cada iteración debe ser utilizada. Dependiendo de la elección de ω, el método puede converger más rápidamente que el método estándar de Gauss-Seidel.",
+            }
+        )
+    else:
+        A = request.get_json()["input"]["A"]
+        b = request.get_json()["input"]["b"]
+        x0 = request.get_json()["input"]["x0"]
+        w = float(request.get_json()["input"]["w"])
+        tol = float(request.get_json()["input"]["tol"])
+        n_iter = float(request.get_json()["input"]["n_iter"])
+        if request.get_json()["input"]["use_cs"] == "1":
+            return mat_sor2.mat_sor2(A, b, x0, tol, n_iter, w)
+        else:
+            return mat_sor.mat_sor(A, b, x0, tol, n_iter, w)
 
 
 if __name__ == "__main__":
