@@ -52,7 +52,7 @@ function InputGroup({ method_obj, update_data }) {
                             name={key} 
                             placeholder={get_label(key,false)} 
                             onChange={update_data} 
-                            required
+                            
                         />
                     </>
                 ))
