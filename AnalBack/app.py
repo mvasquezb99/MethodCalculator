@@ -1,10 +1,11 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from metodos import (biseccion, biseccion2, mat_jacobi, mat_jacobi2,
-                     mat_scidel, mat_scidel2, mat_sor, mat_sor2, mod1_newton,
-                     mod1_newton2, mod2_newton, mod2_newton2, newton, newton2,
-                     punto_fijo, punto_fijo2, regla_falsa, regla_falsa2,
-                     secante, secante2)
+from metodos import (biseccion, biseccion2, lagrange_interpol, mat_jacobi,
+                     mat_jacobi2, mat_scidel, mat_scidel2, mat_sor, mat_sor2,
+                     mod1_newton, mod1_newton2, mod2_newton, mod2_newton2,
+                     newton, newton2, newton_interpol, punto_fijo, punto_fijo2,
+                     regla_falsa, regla_falsa2, secante, secante2,
+                     spline_cubic, spline_lineal, vandermonde)
 
 app = Flask(__name__)
 cors = CORS(app, origins="*")
@@ -54,7 +55,6 @@ def regla_falsa_route():
                 "n_iter": "",
                 "explicacion": "El método de la regla falsa (o método de interpolación lineal) es otro algoritmo para encontrar una aproximación de la raíz de una función continua en un intervalo [a,b] donde f(a)⋅f(b)<0. A diferencia del método de la bisección, en el que el intervalo se divide por la mitad en cada paso, el método de la regla falsa usa una aproximación lineal de la función para determinar dónde se encuentra la raíz. Este método generalmente converge más rápido que el de la bisección, aunque puede ser menos estable en algunos casos.",
                 "use_cs": "",  # if 1 then use relative error
-
             }
         )
     else:
@@ -182,7 +182,6 @@ def newton_mod2_route():
                 "n_iter": "",
                 "explicacion": "El método modificado de Newton para raíces múltiples sin utilizar directamente la multiplicidad m es otra variante del método de Newton que ajusta el procedimiento iterativo sin necesidad de conocer o estimar la multiplicidad de la raíz. Esta modificación se basa en el uso tanto de la función f(x) como de su derivada primera f′(x) y segunda derivada f′′(x), lo que permite mejorar la convergencia hacia una raíz múltiple.",
                 "use_cs": "",  # if 1 then use relative error
-
             }
         )
     else:
@@ -274,6 +273,81 @@ def mat_sor_route():
             return mat_sor2.mat_sor2(A, b, x0, tol, n_iter, w)
         else:
             return mat_sor.mat_sor(A, b, x0, tol, n_iter, w)
+
+
+@app.route("/vandermonde", methods=["GET", "POST"])
+def vandermonde_rout():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "x": "",
+                "y": "",
+            }
+        )
+    else:
+        x = request.get_json()["input"]["x"]
+        y = request.get_json()["input"]["y"]
+        return vandermonde.vandermonde(x, y)
+
+
+@app.route("/newton_interpol", methods=["GET", "POST"])
+def newton_interpol_rout():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "x": "",
+                "y": "",
+            }
+        )
+    else:
+        x = request.get_json()["input"]["x"]
+        y = request.get_json()["input"]["y"]
+        return newton_interpol.newton_interpolation(x, y)
+
+
+@app.route("/lagrange_interpol", methods=["GET", "POST"])
+def lagrange_interpol_rout():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "x": "",
+                "y": "",
+            }
+        )
+    else:
+        x = request.get_json()["input"]["x"]
+        y = request.get_json()["input"]["y"]
+        return lagrange_interpol.lagrange_interpolation(x, y)
+
+
+@app.route("/spline_lineal", methods=["GET", "POST"])
+def spline_lineal_rout():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "x": "",
+                "y": "",
+            }
+        )
+    else:
+        x = request.get_json()["input"]["x"]
+        y = request.get_json()["input"]["y"]
+        return spline_lineal.spline_lineal(x, y)
+
+
+@app.route("/spline_cubica", methods=["GET", "POST"])
+def spline_cubica_rout():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "x": "",
+                "y": "",
+            }
+        )
+    else:
+        x = request.get_json()["input"]["x"]
+        y = request.get_json()["input"]["y"]
+        return spline_cubic.spline_cubic(x, y)
 
 
 if __name__ == "__main__":
