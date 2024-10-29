@@ -8,9 +8,21 @@ function InputGroup({ method_obj, update_data }) {
             case "a":
                 type = "text"
                 return is_title ? "Limite inferior" : "0";
+            case "A":
+                type = "text"
+                return is_title ? "Matriz de coeficientes" : "1 0 0 ; 0 1 0 ; 0 0 1";
             case "b":
                 type = "text"
-                return is_title ? "Limite superior" : "4"
+                return is_title ? "Vector b" : "1;2;3"
+            case "w":
+                type = "text"
+                return is_title ? "Grados de relajación" : "2"
+            case "x":
+                type = "text"
+                return is_title ? "Valores de x" : " 0;2;3;1"
+            case "y":
+                type = "text"
+                return is_title ? "Valores de f(x)" : "[0.4,0.2,0.1,0.9]"
             case "fx":
                 type = "text"
                 return is_title ? "Función" : "exp(-x)+4"
@@ -22,7 +34,7 @@ function InputGroup({ method_obj, update_data }) {
                 return is_title ? "Tolerancia del error" : "0.5E-3"
             case "x0":
                 type = "text"
-                return is_title ? "Valor inicial para X" : "0"
+                return is_title ? "Valor inicial para X" : "0 | 1;2;3"
             case "x1":
                 type = "text"
                 return is_title ? "Siguiente valor para X" : "1"
@@ -41,9 +53,10 @@ function InputGroup({ method_obj, update_data }) {
     }
 
     return (
-        <>
+        <> 
             {
                 inputs.map((key) => (
+                    key !== "explicacion"?
                     <>
                         <label className="w-full" htmlFor={key}>{get_label(key,true)}</label>
                         <input 
@@ -52,9 +65,8 @@ function InputGroup({ method_obj, update_data }) {
                             name={key} 
                             placeholder={get_label(key,false)} 
                             onChange={update_data} 
-                            
                         />
-                    </>
+                    </>:<></>
                 ))
             }
         </>

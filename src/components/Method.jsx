@@ -4,7 +4,7 @@ import MethodForm from "./MethodForm";
 import Table from "./Table";
 import { parse, all, create, log } from 'mathjs';
 
-function Method({ method_route, method_name, get_active_method}) {
+function Method({ method_route, method_name, get_active_method, type }) {
     const [method_data, setMethod_data] = useState({});
     const [method_answer, setMethod_answer] = useState(undefined);
     const [calculator, set_calculator] = useState(undefined);
@@ -15,9 +15,8 @@ function Method({ method_route, method_name, get_active_method}) {
     }
 
     const put_method = async (input) => {
-
         input["use_cs"] = "on" ? "1" : "0";
-        
+
         const ans = await axios.post(`http://localhost:5000/${method_route}`, { input })
         setMethod_answer(ans.data);
 
@@ -50,17 +49,17 @@ function Method({ method_route, method_name, get_active_method}) {
         elt.remove()
     }
 
-    function svg_cb(data){
+    function svg_cb(data) {
         const blob = new Blob([data], { type: 'image/svg+xml' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
 
         link.href = url;
-        link.download = 'image.svg'; 
-    
+        link.download = 'image.svg';
+
         document.body.appendChild(link);
         link.click();
-    
+
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
     }
@@ -68,8 +67,8 @@ function Method({ method_route, method_name, get_active_method}) {
     const get_svg_graph = () => {
         calculator.asyncScreenshot({
             format: 'svg',
-        },svg_cb);
-    } 
+        }, svg_cb);
+    }
 
     const handle_active_method = () => {
         get_active_method(method_name);
@@ -94,13 +93,12 @@ function Method({ method_route, method_name, get_active_method}) {
             </h1>
             <h2 className="text-2xl text-gray-500 text-opacity-100">Explicación</h2>
             <p className="mt-3 border-b-2 border-dotted pb-6 w-fit text-justify">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur suscipit corporis, fugit ad nulla reiciendis quaerat expedita similique culpa necessitatibus, inventore doloremque labore illum, commodi incidunt qui excepturi iure exercitationem!
-                Voluptates aliquid nemo temporibus! Quam, amet aliquid. Tenetur harum consequuntur nostrum vitae omnis excepturi animi magnam facere, eum maxime nihil culpa, reprehenderit illum! Necessitatibus incidunt eum, maxime laboriosam sed cumque?
+                {method_data["explicacion"]}
             </p>
             <h2 className="text-2xl text-gray-500 text-opacity-100 mt-3">Calculadora</h2>
             <section className="w-full h-[51vh] flex mt-4 pb-4 justify-evenly border-b-2 border-dotted">
-                <MethodForm method_obj={method_data} put_method={put_method} />
-                <Table data={method_answer} />
+                <MethodForm method_obj={method_data} put_method={put_method} method_type={type}/>
+                <Table data={method_answer} type={type} />
             </section>
             <section className="w-full h-[93vh] flex flex-col mt-3 justify-start items-start ">
                 <div id='calculatorWrapper' className="h-fit w-full flex flex-col items-start justify-start">

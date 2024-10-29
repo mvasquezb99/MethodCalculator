@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputGroup from "./InputGroup";
-function MethodForm({ method_obj, put_method }) {
+function MethodForm({ method_obj, put_method, method_type }) {
 
     const [input_data, set_data] = useState(method_obj);
 
@@ -12,9 +12,34 @@ function MethodForm({ method_obj, put_method }) {
             }
         })
     }
+    
+    const check_input = (input)  => {
+        for (const key in input) {
+            if(key !== "use_cs" && input[key] === ""){
+                return false;
+            }
+        }
+
+        switch (method_type) {
+            case "regular":
+                break;
+            case "matrix":
+                break;
+            case "polinomial":
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
     const on_submit = (e) => {
         e.preventDefault();
-        put_method(input_data);
+        if(check_input(input_data)){
+            put_method(input_data);
+        } else {
+            alert("Debes poner todos los datos!!")
+        }
     }
 
     return (

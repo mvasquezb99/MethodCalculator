@@ -6,13 +6,21 @@ import Home from './components/Home'
 import SideBar from './components/SideBar'
 function App() {
   const [active_method, setActive_method] = useState("");
-  const method_list = [['Biseccion', 'biseccion'],
-  ['Punto fijo', 'puntoFijo'],
-  ['Regla falsa', 'reglaFalsa'],
-  ['Newton', 'newton'],
-  ['Secante', 'secante'],
-  ['Newton M1', 'newton_mod1'],
-  ['Newton M2', 'newton_mod2'],
+  const method_list = [['Biseccion', 'biseccion' , 'regular'],
+  ['Punto fijo', 'puntoFijo' , 'regular'],
+  ['Regla falsa', 'reglaFalsa' , 'regular'],
+  ['Newton', 'newton' , 'regular'],
+  ['Secante', 'secante','regular'],
+  ['Newton M1', 'newton_mod1' , 'regular'],
+  ['Newton M2', 'newton_mod2' , 'regular'],
+  ['Seidel-Gauss', 'mat_scidel', 'matrix'],
+  ['Jacobi', 'mat_jacobi', 'matrix'],
+  ['SOR', 'mat_sor', 'matrix'],
+  ['Vandermonte', 'vandermonde' , 'polinomial'],
+  ['Interpolación de Newton', 'newton_interpol' , 'polinomial'],
+  ['Interpolación de Larange', 'lagrange_interpol' , 'polinomial'],
+  ['Spline cubica', 'spline_cubica' , 'polinomial'],
+  
   ]; // Refactorizar a objeto, soy una gueva 
 
   const get_active_method = (method) => {
@@ -28,7 +36,7 @@ function App() {
           <Route exact path='/' element={<Home/>} />
           {
             method_list.map((element) => (
-              <Route exact path={`/${element[1]}`} element={<Method method_route={element[1]} method_name={element[0]} get_active_method={get_active_method} />} />
+              <Route exact path={`/${element[1]}`} element={<Method method_route={element[1]} method_name={element[0]} get_active_method={get_active_method} type={element[2]}/>}/>
             ))
           }
         </Routes>
