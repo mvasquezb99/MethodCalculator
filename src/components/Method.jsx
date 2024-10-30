@@ -20,16 +20,28 @@ function Method({ method_route, method_name, get_active_method, type }) {
         const ans = await axios.post(`http://localhost:5000/${method_route}`, { input })
         setMethod_answer(ans.data);
 
-        let func = input.fx;
-
-        func = func.replace(/\*\*/g, '^');
-        console.log(func);
         const math = create(all);
-        const node = math.parse(func);
-        const latex = node.toTex();
+        if(type === "regular"){
+            let func = input.fx;
+            func = func.replace(/\*\*/g, '^');
+            const node = math.parse(func);
+            const latex = node.toTex();
+            calculator.setExpression({ id: 'AnswGraph', latex: `f(x) = ${latex}` });
+            calculator.setExpression({ id: 'AnswPoint', latex: `x = ${ans.data.Xm[ans.data.Xm.length - 1]}`, lineStyle: Desmos.Styles.DASHED });
+        } else if(type === "matrix"){
+            let matrix = input["A"].split(";");
+            if(matrix.length === 2){
+                let matrix_cpy = matrix;
+                let b = input["b"].split(";");
+                console.log(matrix);
+                
+                for(let i = 0; i < matrix.length ; i++){
+                    matrix_cpy = matrix[i].split(" ");
+                    calculator.setExpression({ id: `AnswGraph_${i}`, latex: `${matrix_cpy[0]}x + ${matrix_cpy[1]}y = ${b[i]}` });
+                }
+            }
+        }
 
-        calculator.setExpression({ id: 'AnswGraph', latex: `f(x) = ${latex}` });
-        calculator.setExpression({ id: 'AnswPoint', latex: `x = ${ans.data.Xm[ans.data.Xm.length - 1]}`, lineStyle: Desmos.Styles.DASHED });
     }
 
     const create_desmos = () => {
