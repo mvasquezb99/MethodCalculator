@@ -43,7 +43,11 @@ function Table({ data, type }) {
                                         </tr>
                                     ))
                                 }
-                            </> : <></>
+                            </> : type === "polinomial" ? <>
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <h1 className="text-3xl">No tenemos tabla para esto...</h1>
+                                </div>
+                            </>: <></>
                         }
                     </table> :
                     data === undefined ?

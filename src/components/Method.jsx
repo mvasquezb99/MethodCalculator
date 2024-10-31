@@ -21,26 +21,36 @@ function Method({ method_route, method_name, get_active_method, type }) {
         setMethod_answer(ans.data);
 
         const math = create(all);
-        if(type === "regular"){
+        
+        if (type === "regular") {
             let func = input.fx;
             func = func.replace(/\*\*/g, '^');
             const node = math.parse(func);
             const latex = node.toTex();
             calculator.setExpression({ id: 'AnswGraph', latex: `f(x) = ${latex}` });
             calculator.setExpression({ id: 'AnswPoint', latex: `x = ${ans.data.Xm[ans.data.Xm.length - 1]}`, lineStyle: Desmos.Styles.DASHED });
-        } else if(type === "matrix"){
+        } else if (type === "polinomial") {
+            let pol = ans.data["pol"];
+            pol = pol.replace(/\*\*/g, '^');
+            const node = math.parse(pol);
+            let latex = node.toTex();
+            latex = latex.replace(/~/g, "");
+            calculator.setExpression({ id: 'AnswGraph', latex: `f(x) = ${latex}` });
+        } else if (type === "matrix") {
             let matrix = input["A"].split(";");
-            if(matrix.length === 2){
+            if (matrix.length === 2) {
                 let matrix_cpy = matrix;
                 let b = input["b"].split(";");
                 console.log(matrix);
-                
-                for(let i = 0; i < matrix.length ; i++){
+
+                for (let i = 0; i < matrix.length; i++) {
                     matrix_cpy = matrix[i].split(" ");
                     calculator.setExpression({ id: `AnswGraph_${i}`, latex: `${matrix_cpy[0]}x + ${matrix_cpy[1]}y = ${b[i]}` });
                 }
             }
         }
+
+        
 
     }
 
@@ -109,12 +119,13 @@ function Method({ method_route, method_name, get_active_method, type }) {
             </p>
             <h2 className="text-2xl text-gray-500 text-opacity-100 mt-3">Calculadora</h2>
             <section className="w-full h-[51vh] flex mt-4 pb-4 justify-evenly border-b-2 border-dotted">
-                <MethodForm method_obj={method_data} put_method={put_method} method_type={type}/>
+                <MethodForm method_obj={method_data} put_method={put_method} method_type={type} />
                 <Table data={method_answer} type={type} />
             </section>
             <section className="w-full h-[93vh] flex flex-col mt-3 justify-start items-start ">
                 <div id='calculatorWrapper' className="h-fit w-full flex flex-col items-start justify-start">
                     <h2 className="text-2xl text-gray-500 text-opacity-100">Grafica</h2>
+                    <p className="mt-3 border-b-2 border-dotted pb-3 w-full text-justify">Recuerda acomodar la grafica en la zona deseada antes de descargar el SVG</p>
                 </div>
                 <button onClick={get_svg_graph} download="graph-screenshot.svg" className="bg-[#00509d] p-1.5 rounded-lg w-fit mt-2 text-white">Descarga el SVG</button>
             </section>

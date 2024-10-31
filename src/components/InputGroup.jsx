@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputGroup({ method_obj, update_data }) {
+function InputGroup({ method_obj, update_data, method_type }) {
     const inputs = Object.keys(method_obj);
     let type;
     function get_label(key, is_title) {
@@ -13,7 +13,11 @@ function InputGroup({ method_obj, update_data }) {
                 return is_title ? "Matriz de coeficientes" : "1 0 0 ; 0 1 0 ; 0 0 1";
             case "b":
                 type = "text"
-                return is_title ? "Vector b | limite superior" : ""
+                if (method_type === "regular") {
+                    return is_title ? "Limite superior" : "0";
+                } else if (method_type === "matrix") {
+                    return is_title ? "Vector b" : "1;1;1";
+                } break;
             case "w":
                 type = "text"
                 return is_title ? "Grados de relajación" : "2"
@@ -34,11 +38,15 @@ function InputGroup({ method_obj, update_data }) {
                 return is_title ? "Tolerancia del error" : "0.5E-3"
             case "x0":
                 type = "text"
-                return is_title ? "Valor inicial para X" : ""
+                if (method_type === "regular") {
+                    return is_title ? "Valor inicial x0" : "0";
+                } else if (method_type === "matrix") {
+                    return is_title ? "Vector inicial x0" : "1;1;1";
+                } break;
             case "x1":
                 type = "text"
                 return is_title ? "Siguiente valor para X" : "1"
-            case "g":    
+            case "g":
                 type = "text"
                 return is_title ? "g(x) deseada" : "exp(-x)+4+x"
             case "m":
@@ -53,20 +61,20 @@ function InputGroup({ method_obj, update_data }) {
     }
 
     return (
-        <> 
+        <>
             {
                 inputs.map((key) => (
-                    key !== "explicacion"?
-                    <>
-                        <label className="w-full" htmlFor={key}>{get_label(key,true)}</label>
-                        <input 
-                            className={`${key === "use_cs" ? "w-fit ml-[1px]" : "w-full"} p-1 border border-[#c2c2c2] rounded-lg`} 
-                            type={type} 
-                            name={key} 
-                            placeholder={get_label(key,false)} 
-                            onChange={update_data} 
-                        />
-                    </>:<></>
+                    key !== "explicacion" ?
+                        <>
+                            <label className="w-full" htmlFor={key}>{get_label(key, true)}</label>
+                            <input
+                                className={`${key === "use_cs" ? "w-fit ml-[1px]" : "w-full"} p-1 border border-[#c2c2c2] rounded-lg`}
+                                type={type}
+                                name={key}
+                                placeholder={get_label(key, false)}
+                                onChange={update_data}
+                            />
+                        </> : <></>
                 ))
             }
         </>
