@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputGroup from "./InputGroup";
+import { log } from "mathjs";
 function MethodForm({ method_obj, put_method, method_type }) {
 
     const [input_data, set_data] = useState(method_obj);
@@ -22,29 +23,33 @@ function MethodForm({ method_obj, put_method, method_type }) {
             }
         }
         console.log(method_type);
-        
+
         switch (method_type) {
             case "regular":
                 return true;
             case "matrix":
                 // Check if its square
                 let matrix = input["A"].split(";");
-                
+
                 let length_ = matrix.length;
                 let matrix_cpy = matrix;
-                
+
                 for (let i = 0; i < length_; i++) {
                     matrix_cpy = matrix[i].trim();
                     matrix_cpy = matrix_cpy.split(" ");
+                    console.log(matrix_cpy);
+
                     if (matrix_cpy.length !== length_) {
+                        console.log("ERROR: La matriz no es cuadrada");
                         return false;
                     }
                 }
                 return true;
             case "polinomial":
                 const vX = input["x"].split(" ");
-                const vY = input["y"].split(" ");                
+                const vY = input["y"].split(" ");
                 if (vX.length !== vY.length) {
+                    console.log("ERROR: No son la misma cantidad de puntos");
                     return false;
                 }
                 return true;
@@ -63,8 +68,13 @@ function MethodForm({ method_obj, put_method, method_type }) {
         } else {
             set_errormssg("Ha habido un error con tus datos.")
         }
-        set_data(method_obj);
     }
+
+
+    useEffect(() => {
+        set_errormssg("");
+
+    },[method_obj])
 
     return (
         <div className="rounded-md p-2 border border-[#c2c2c2] h-fit">

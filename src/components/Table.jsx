@@ -1,7 +1,13 @@
+import { log } from "mathjs";
 import React, { useEffect } from "react";
 
 
 function Table({ data, type }) {
+
+    console.log(data);
+    if(data !== undefined){
+        console.log("Hoalaaa",typeof(data))
+    }
     return (
         <div className="w-1/2 h-[425px] border border-[#c2c2c2] rounded-md p-2 overflow-y-scroll">
             {
@@ -54,7 +60,7 @@ function Table({ data, type }) {
                         <div className="w-full h-full flex justify-center items-center">
                             <h1 className="text-3xl">Esperando por tus entradas!</h1>
                         </div> :
-                        data.status === 400 ?
+                    data.status === 400 ?
                             <div className="w-full h-full flex flex-col justify-center items-center">
                                 <h1 className="text-3xl text-red-700">Oops nos encotramos con un error!</h1>
                                 <small className="text-red-700">{data.message}</small>

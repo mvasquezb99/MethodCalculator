@@ -28,7 +28,7 @@ function Method({ method_route, method_name, get_active_method, type }) {
             const node = math.parse(func);
             const latex = node.toTex();
             calculator.setExpression({ id: 'AnswGraph', latex: `f(x) = ${latex}` });
-            calculator.setExpression({ id: 'AnswPoint', latex: `x = ${ans.data.Xm[ans.data.Xm.length - 1]}`, lineStyle: Desmos.Styles.DASHED });
+            calculator.setExpression({ id: 'AnswPoint', latex: `(${ans.data.Xm[ans.data.Xm.length - 1]},0)`, lineStyle: Desmos.Styles.DASHED });
         } else if (type === "polinomial") {
             let pol = ans.data["pol"];
             pol = pol.replace(/\*\*/g, '^');
