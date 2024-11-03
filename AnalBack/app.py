@@ -26,7 +26,7 @@ def biseccion_route():
                 "b": "",
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método de la bisección es un algoritmo matemático utilizado para encontrar una aproximación de la raíz de una función continua en un intervalo cerrado [a,b], donde se sabe que la función cambia de signo (es decir, f(a)⋅f(b)<0). El método se basa en la idea de dividir el intervalo en dos mitades, iterativamente, hasta que se encuentra un valor que se aproxime lo suficiente a la raíz de la ecuación.",
+                "explicacion": "El método de la bisección es un algoritmo matemático utilizado para encontrar una aproximación de la raíz de una función continua en un intervalo cerrado [a,b], donde se sabe que la función cambia de signo (es decir, f(a)⋅f(b)<0). El método se basa en la idea de dividir el intervalo en dos mitades, iterativamente, hasta que se encuentra un valor que se aproxime lo suficiente a la raíz de la ecuación.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
                 "use_cs": "",  # if 1 then use relative error
             }
         )
@@ -53,7 +53,7 @@ def regla_falsa_route():
                 "b": "",
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método de la regla falsa (o método de interpolación lineal) es otro algoritmo para encontrar una aproximación de la raíz de una función continua en un intervalo [a,b] donde f(a)⋅f(b)<0. A diferencia del método de la bisección, en el que el intervalo se divide por la mitad en cada paso, el método de la regla falsa usa una aproximación lineal de la función para determinar dónde se encuentra la raíz. Este método generalmente converge más rápido que el de la bisección, aunque puede ser menos estable en algunos casos.",
+                "explicacion": "El método de la regla falsa (o método de interpolación lineal) es otro algoritmo para encontrar una aproximación de la raíz de una función continua en un intervalo [a,b] donde f(a)⋅f(b)<0. A diferencia del método de la bisección, en el que el intervalo se divide por la mitad en cada paso, el método de la regla falsa usa una aproximación lineal de la función para determinar dónde se encuentra la raíz. Este método generalmente converge más rápido que el de la bisección, aunque puede ser menos estable en algunos casos.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
                 "use_cs": "",  # if 1 then use relative error
             }
         )
@@ -67,7 +67,6 @@ def regla_falsa_route():
             return regla_falsa.regla_falsa(fx, a, b, tol, n_iter)
         else:
             return regla_falsa2.regla_falsa2(fx, a, b, tol, n_iter)
-        # TODO: Check thath the method is correct
 
 
 @app.route("/puntoFijo", methods=["GET", "POST"])
@@ -80,7 +79,7 @@ def punto_fijo_route():
                 "x0": "",
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método del punto fijo es un algoritmo utilizado para encontrar una solución a una ecuación de la forma f(x)=0 al reformularla como una ecuación de punto fijo, es decir, x=g(x), donde g(x) es una función que, bajo ciertas condiciones, iterativamente se aproxima a una solución. El objetivo del método es encontrar un punto x∗ tal que x∗=g(x∗), lo que implica que x∗x∗ es un punto fijo de la función g.",
+                "explicacion": "El método del punto fijo es un algoritmo utilizado para encontrar una solución a una ecuación de la forma f(x)=0 al reformularla como una ecuación de punto fijo, es decir, x=g(x), donde g(x) es una función que, bajo ciertas condiciones, iterativamente se aproxima a una solución. El objetivo del método es encontrar un punto x∗ tal que x∗=g(x∗), lo que implica que x∗x∗ es un punto fijo de la función g.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
                 "use_cs": "",  # if 1 then use relative error
             }
         )
@@ -105,7 +104,7 @@ def newton_route():
                 "x0": "",
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método de Newton (también llamado método de Newton-Raphson) es un algoritmo iterativo que se utiliza para encontrar aproximaciones de las raíces de una función f(x)=0. Este método es conocido por su rapidez de convergencia en comparación con otros métodos, como la bisección o la regla falsa, siempre que se inicie cerca de la raíz.",
+                "explicacion": "El método de Newton (también llamado método de Newton-Raphson) es un algoritmo iterativo que se utiliza para encontrar aproximaciones de las raíces de una función f(x)=0. Este método es conocido por su rapidez de convergencia en comparación con otros métodos, como la bisección o la regla falsa, siempre que se inicie cerca de la raíz.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
                 "use_cs": "",  # if 1 then use relative error
             }
         )
@@ -130,7 +129,7 @@ def secante_route():
                 "x1": "",
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método de la secante es un algoritmo numérico para encontrar aproximaciones de las raíces de una función f(x)=0. Este método es una variante del método de Newton, pero, a diferencia de Newton, no requiere el cálculo de la derivada de la función. En su lugar, el método de la secante utiliza una aproximación de la derivada mediante diferencias finitas, lo que lo hace más eficiente en ciertos casos donde calcular la derivada es complicado.",
+                "explicacion": "El método de la secante es un algoritmo numérico para encontrar aproximaciones de las raíces de una función f(x)=0. Este método es una variante del método de Newton, pero, a diferencia de Newton, no requiere el cálculo de la derivada de la función. En su lugar, el método de la secante utiliza una aproximación de la derivada mediante diferencias finitas, lo que lo hace más eficiente en ciertos casos donde calcular la derivada es complicado.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
                 "use_cs": "",  # if 1 then use relative error
             }
         )
@@ -155,7 +154,7 @@ def newton_mod1_route():
                 "m": "",
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método modificado de Newton para raíces múltiples es una variante del método de Newton que se utiliza cuando se quiere encontrar una raíz múltiple de una función. Una raíz múltiple ocurre cuando la función f(x) toca el eje xx pero no lo cruza, lo que significa que la derivada de la función también es cero en ese punto (o en parte de la vecindad de la raíz). Este tipo de raíces hace que el método de Newton convencional converja más lentamente o incluso falle, por lo que es necesario modificarlo.",
+                "explicacion": "El método modificado de Newton para raíces múltiples es una variante del método de Newton que se utiliza cuando se quiere encontrar una raíz múltiple de una función. Una raíz múltiple ocurre cuando la función f(x) toca el eje xx pero no lo cruza, lo que significa que la derivada de la función también es cero en ese punto (o en parte de la vecindad de la raíz). Este tipo de raíces hace que el método de Newton convencional converja más lentamente o incluso falle, por lo que es necesario modificarlo.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
                 "use_cs": "",  # if 1 then use relative error
             }
         )
@@ -180,7 +179,7 @@ def newton_mod2_route():
                 "x0": "",
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método modificado de Newton para raíces múltiples sin utilizar directamente la multiplicidad m es otra variante del método de Newton que ajusta el procedimiento iterativo sin necesidad de conocer o estimar la multiplicidad de la raíz. Esta modificación se basa en el uso tanto de la función f(x) como de su derivada primera f′(x) y segunda derivada f′′(x), lo que permite mejorar la convergencia hacia una raíz múltiple.",
+                "explicacion": "El método modificado de Newton para raíces múltiples sin utilizar directamente la multiplicidad m es otra variante del método de Newton que ajusta el procedimiento iterativo sin necesidad de conocer o estimar la multiplicidad de la raíz. Esta modificación se basa en el uso tanto de la función f(x) como de su derivada primera f′(x) y segunda derivada f′′(x), lo que permite mejorar la convergencia hacia una raíz múltiple. \nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
                 "use_cs": "",  # if 1 then use relative error
             }
         )
@@ -205,7 +204,7 @@ def mat_jacobi_route():
                 "x0": "",
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método de Jacobi es un algoritmo iterativo utilizado para resolver sistemas de ecuaciones lineales de la forma Ax=b, donde A es una matriz de coeficientes, x es el vector de incógnitas y b es el vector de términos independientes. Este método es especialmente útil cuando la matriz AA es dispersa (tiene muchos ceros) o es diagonalmente dominante. El método de Jacobi es relativamente simple de implementar y puede ser utilizado en problemas de gran escala.",
+                "explicacion": "El método de Jacobi es un algoritmo iterativo utilizado para resolver sistemas de ecuaciones lineales de la forma Ax=b, donde A es una matriz de coeficientes, x es el vector de incógnitas y b es el vector de términos independientes. Este método es especialmente útil cuando la matriz AA es dispersa (tiene muchos ceros) o es diagonalmente dominante. El método de Jacobi es relativamente simple de implementar y puede ser utilizado en problemas de gran escala.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
                 "use_cs": "",  # if 1 then use relative error
             }
         )
@@ -231,7 +230,7 @@ def mat_scidel_route():
                 "x0": "",
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método de Gauss-Seidel es un algoritmo iterativo para resolver sistemas de ecuaciones lineales de la forma Ax=b, similar al método de Jacobi. Sin embargo, el método de Gauss-Seidel mejora la velocidad de convergencia al utilizar los valores más recientes de las incógnitas dentro de cada iteración, lo que lo hace más eficiente en muchos casos. Es especialmente útil para sistemas con matrices grandes y dispersas o cuando se puede garantizar la convergencia.",
+                "explicacion": "El método de Gauss-Seidel es un algoritmo iterativo para resolver sistemas de ecuaciones lineales de la forma Ax=b, similar al método de Jacobi. Sin embargo, el método de Gauss-Seidel mejora la velocidad de convergencia al utilizar los valores más recientes de las incógnitas dentro de cada iteración, lo que lo hace más eficiente en muchos casos. Es especialmente útil para sistemas con matrices grandes y dispersas o cuando se puede garantizar la convergencia.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
                 "use_cs": "",  # if 1 then use relative error
             }
         )
@@ -259,7 +258,7 @@ def mat_sor_route():
                 "use_cs": "",  # if 1 then use relative error
                 "tol": "",
                 "n_iter": "",
-                "explicacion": "El método de Gauss-Seidel relajado o SOR (Successive Over-Relaxation) es una mejora del método de Gauss-Seidel para acelerar su convergencia mediante la introducción de un factor de relajación ω. Este factor ajusta cuánto de la nueva aproximación calculada en cada iteración debe ser utilizada. Dependiendo de la elección de ω, el método puede converger más rápidamente que el método estándar de Gauss-Seidel.",
+                "explicacion": "El método de Gauss-Seidel relajado o SOR (Successive Over-Relaxation) es una mejora del método de Gauss-Seidel para acelerar su convergencia mediante la introducción de un factor de relajación ω. Este factor ajusta cuánto de la nueva aproximación calculada en cada iteración debe ser utilizada. Dependiendo de la elección de ω, el método puede converger más rápidamente que el método estándar de Gauss-Seidel.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
             }
         )
     else:
@@ -282,6 +281,7 @@ def vandermonde_rout():
             {
                 "x": "",
                 "y": "",
+                "explicacion": "El método de interpolación de Vandermonde es una técnica utilizada en análisis numérico para encontrar un polinomio que pase exactamente por un conjunto de puntos dados. El objetivo es obtener un polinomio P(x) de grado n−1 que interpole los puntos.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
             }
         )
     else:
@@ -297,6 +297,7 @@ def newton_interpol_rout():
             {
                 "x": "",
                 "y": "",
+                "explicacion": "El método de interpolación de Newton es una técnica de análisis numérico para construir un polinomio interpolante que pase por un conjunto de puntos dados. A diferencia de otros métodos, este se basa en diferencias divididas y utiliza una forma recursiva que permite agregar nuevos puntos de manera eficiente sin recalcular todo el polinomio desde el inicio.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
             }
         )
     else:
@@ -312,6 +313,7 @@ def lagrange_interpol_rout():
             {
                 "x": "",
                 "y": "",
+                "explicacion": "El método de interpolación de Lagrange es una técnica que permite encontrar un polinomio de grado n−1 que pase exactamente por un conjunto de n puntos dados.  Lagrange no requiere resolver un sistema de ecuaciones, ya que construye el polinomio interpolante directamente mediante una combinación lineal de polinomios llamados polinomios básicos de Lagrange.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
             }
         )
     else:
@@ -327,6 +329,7 @@ def spline_lineal_rout():
             {
                 "x": "",
                 "y": "",
+                "explicacion": "El método de interpolación por splines lineales es una técnica en análisis numérico utilizada para construir una función que interpola un conjunto de puntos dados mediante un conjunto de segmentos de líneas rectas. En lugar de buscar un único polinomio de grado elevado para todos los puntos, el método divide el intervalo en subintervalos y ajusta un polinomio lineal en cada uno.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
             }
         )
     else:
@@ -342,6 +345,7 @@ def spline_cubica_rout():
             {
                 "x": "",
                 "y": "",
+                "explicacion": "El método de interpolación por splines cúbicos es una técnica que busca construir una curva suave que pase por un conjunto de puntos dados mediante polinomios cúbicos en cada subintervalo entre puntos adyacentes. A diferencia del spline lineal, el spline cúbico garantiza que la función interpolante sea suave en el sentido de que las primeras y segundas derivadas coincidan en los puntos de unión entre los segmentos cúbicos.\nSyntaxis para funciones: exp() -> exponencial, ln() -> logaritmo natural, sin() -> seno, cos() -> coseno, tan() -> tangente, sqrt() -> raíz cuadrada, ** -> potencia",
             }
         )
     else:
