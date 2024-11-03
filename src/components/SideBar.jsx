@@ -1,19 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
-function SideBar({ method_list, active_method}) {
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+const Sidebar = ({ chapters }) => {
+    const [expandedChapter, setExpandedChapter] = useState(null);
+    const handleChapterClick = (chapter) => {
+        setExpandedChapter(expandedChapter === chapter ? null : chapter);
+    };
+
+    if (!chapters) {
+        return <div>No hay capítulos disponibles.</div>;
+    }
+
     return (
-        <aside className="w-1/6 h-screen flex flex-col p-4 pl-6 border-r-2 border-dotted border-[#c2c2c2]">
-            <Link to="/" className="text-3xl w-full h-fit flex items-center pb-1 mt-4 mb-3 text-[#00509d]">Calculadoras</Link>
-            {
-                method_list.map((m) => (
-                    <li className={`mb-2 ${m[0] === active_method ? "text-[#00509d] translate-x-3": "hover:text-[#00509d] hover:translate-x-3"} transition ease-out hover:translate-x-3`}>
-                        <Link to={`/${m[1]}`} className="text-xl w-full h-10">{m[0]}</Link>
-                    </li>
-                ))
-            }
-        </aside>
-    )
-}
+        <div className="w-64 h-full bg-gray-800 text-white">
+            <Link to="/" className="block p-4 text-2xl font-bold hover:bg-gray-700">
+                Análisis Numérico
+            </Link>
+            <nav className="mt-6">
+                {Object.entries(chapters).map(([chapter, functions]) => (
+                    <div key={chapter} className="mb-4">
+                        <h3
+                            className="text-lg font-semibold cursor-pointer hover:bg-gray-700 p-2"
+                            onClick={() => handleChapterClick(chapter)}
+                        >
+                            {chapter}
+                        </h3>
+                        {expandedChapter === chapter && (
+                            <ul>
+                                {functions.map(([label, path, type]) => (
+                                    <li key={path} className="hover:bg-gray-700">
+                                        <Link to={`/${path}`} className="block py-2 px-4">
+                                            {label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                ))}
+            </nav>
+        </div>
+    );
+};
 
-
-export default SideBar;
+export default Sidebar;
