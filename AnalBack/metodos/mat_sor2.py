@@ -36,8 +36,8 @@ def mat_sor2(A, b, x0, tol, n_iter, w):
         )  # numpy divide directamente con point division
         x0 = xn
         c += 1
-        # S.append(np.round(np.linalg.matrix_transpose(xn), 7))
-        S.append(np.linalg.matrix_transpose(xn).tolist())
+        S.append(np.round(np.linalg.matrix_transpose(xn), 4).tolist())
+        # S.append(np.linalg.matrix_transpose(xn).tolist())
         E.append(err)
     if err < tol:
         msg = "\nRESULTADO:\n\n\t", "S: ", S[-1], "E: ", E[-1], "\n"

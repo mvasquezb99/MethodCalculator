@@ -9,7 +9,8 @@ def vandermonde(x, y):
     x = np.transpose(x)
     y = np.transpose(y)
 
-    V = np.column_stack([x**3, x**2, x, np.ones(len(x))])
+    # V = np.column_stack([x**3, x**2, x, np.ones(len(x))])
+    V = np.vander(x, increasing=False)  # Vandermonde matrix in decreasing powers
 
     b = y
 
@@ -23,9 +24,14 @@ def vandermonde(x, y):
         else:
             pol_str += f"{pol[i]:.4f}x^{n - i} + "
 
+    x_vals = np.linspace(min(x), max(x), 500)
+    y_vals = np.polyval(pol, x_vals)
+
     return jsonify(
         {
             "pol": pol_str,
+            "x_vals": x_vals.tolist(),
+            "y_vals": y_vals.tolist(),
             "status": 200,
         }
     )

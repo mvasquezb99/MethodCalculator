@@ -4,6 +4,7 @@ from flask import jsonify
 
 def spline_cubic(x_str, y_str):
     polinomios = []
+    polinomios_range = []
     d = 3
     x = np.array([float(num) for num in x_str.split()])
     y = np.array([float(num) for num in y_str.split()])
@@ -80,6 +81,8 @@ def spline_cubic(x_str, y_str):
 
     # Reshape 'val' to a (n-1) x (d+1) matrix and transpose it
     Tabla = val.reshape(n - 1, -1).T  # Automatically gets the right shape
+    x_vals = np.linspace(x[0], x[-1], 1000)  # Fine grid of x values for smooth plot
+    y_vals = np.zeros_like(x_vals)
 
     print("Polinomios cúbicos:")
 
@@ -91,14 +94,29 @@ def spline_cubic(x_str, y_str):
         c_i = Tabla[2, i]  # Linear coefficient
         d_i = Tabla[3, i]  # Constant coefficient
 
+        # Get the range of x values for this interval
+        x_range = (x_vals >= x[i]) & (x_vals <= x[i + 1])
+
+        # Compute the polynomial values for this interval
+        y_vals[x_range] = (
+            a_i * x_vals[x_range] ** 3
+            + b_i * x_vals[x_range] ** 2
+            + c_i * x_vals[x_range]
+            + d_i
+        )
+
         # Print the polynomial function for the interval
         polinomios.append(
-            f"f(x) = {a_i:.2f} * x^3 + {b_i:.2f} * x^2 + {c_i:.2f} * x + {d_i:.2f} for {x[i]} <= x < {x[i + 1]}"
+            f"f(x) = {a_i:.2f} * x^3 + {b_i:.2f} * x^2 + {c_i:.2f} * x + {d_i:.2f}"
         )
+        polinomios_range.append(f"{x[i]} <= x < {x[i + 1]}")
 
     return jsonify(
         {
             "pol_arr": polinomios,
+            "pol_range": polinomios_range,
+            "y_vals": y_vals.tolist(),
+            "x_vals": x_vals.tolist(),
             "status": 200,
         }
     )

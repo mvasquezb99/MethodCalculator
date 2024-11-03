@@ -24,7 +24,7 @@ def pf(fx, g, x0, tol, n_iter):
         err = abs(Xn[c] - Xn[c - 1])
         E.append(err)
     if fe == 0:
-        msg = "\nRESULTADO:\n\n\t fe:", fe, "x: ", xn, "E: ", err, "\n"
+        msg = "RESULTADO: fe:" + str(fe) + " x: " + str(xn) + " E: " + str(err)
         return jsonify(
             {
                 "msg": msg,
@@ -35,7 +35,9 @@ def pf(fx, g, x0, tol, n_iter):
             }
         )
     elif err < tol:
-        msg = "\nRESULTADO APROXIMADO:\n\n\t fe:", fe, "x: ", xn, "E: ", err, "\n"
+        msg = (
+            "RESULTADO APROXIMADO: fe:" + str(fe) + " x: " + str(xn) + " E: " + str(err)
+        )
         return jsonify(
             {
                 "msg": msg,
