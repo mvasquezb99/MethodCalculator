@@ -16,14 +16,11 @@ def lagrange_interpolation(x_str, y_str):
 
         for j in range(n):
             if j != i:
-                # Polynomial factor (x - x_j) in Li
                 paux = np.array([1, -x[j]])
                 # Convolve the current Li with (x - x_j)
                 Li = np.convolve(Li, paux)
-                # Update the denominator
                 den *= x[i] - x[j]
 
-        # Store the term y_i * L_i / denominator in the table
         Tabla[i, :] = y[i] * Li / den
 
     # Sum the rows of the table to get the final polynomial
@@ -36,9 +33,14 @@ def lagrange_interpolation(x_str, y_str):
         else:
             pol_str += f"{pol[i]:.4f}x^{n - i} + "
 
+    x_vals = np.linspace(min(x), max(x), 500)
+    y_vals = np.polyval(pol, x_vals)
+
     return jsonify(
         {
             "pol": pol_str,
+            "x_vals": x_vals.tolist(),
+            "y_vals": y_vals.tolist(),
             "status": 200,
         }
     )

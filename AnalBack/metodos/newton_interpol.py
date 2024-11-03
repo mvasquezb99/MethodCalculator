@@ -20,17 +20,14 @@ def newton_interpolation(x_str, y_str):
                 tabla.iloc[i, 0] - tabla.iloc[i - j + 1, 0]
             )
 
-    # print("\n Tabla de diferencias divididas: \n", tabla)
-
     coef = np.diag(tabla, +1)
-    coef = np.concatenate(([x[0]], coef))
     pol = np.array([coef[0]])
     acum = np.array([1])  # This corresponds to the accumulated product term
 
     for i in range(n - 1):
         pol = np.concatenate(([0], pol))
         acum = np.convolve(acum, [1, -x[i]])
-        pol = pol + x[i + 1] * acum  # Before: pol = pol + coef[i + 1] * acum
+        pol = pol + coef[i + 1] * acum  # Before: pol = pol + coef[i + 1] * acum
 
     pol_str = ""
     for i in range(n):
@@ -39,11 +36,14 @@ def newton_interpolation(x_str, y_str):
         else:
             pol_str += f"{pol[i]:.4f}x^{n - i} + "
 
-    # print("\nPolinomio de Newton: ", pol_str)
+    x_vals = np.linspace(min(x), max(x), 500)
+    y_vals = np.polyval(pol, x_vals)
 
     return jsonify(
         {
             "pol": pol_str,
+            "x_vals": x_vals.tolist(),
+            "y_vals": y_vals.tolist(),
             "status": 200,
         }
     )
