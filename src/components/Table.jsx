@@ -1,13 +1,8 @@
-import { log } from "mathjs";
 import React, { useEffect } from "react";
 
 
 function Table({ data, type }) {
-
-    console.log(data);
-    if(data !== undefined){
-        console.log("Hoalaaa",typeof(data))
-    }
+    
     return (
         <div className="w-1/2 h-[425px] border border-[#c2c2c2] rounded-md p-2 overflow-y-scroll">
             {
@@ -28,7 +23,7 @@ function Table({ data, type }) {
                             </tr>
                         </thead>
                         {
-                            type === "regular" ? <>
+                            type === "regular" && data !== undefined ? <>
                                 <tbody>
                                     {
                                         data.fxm.map((fx, i) => (
@@ -40,7 +35,7 @@ function Table({ data, type }) {
                                         ))
                                     }
                                 </tbody>
-                            </> : type === "matrix" ? <>
+                            </> : type === "matrix" && data.S !== undefined ? <>
                                 {
                                     data.S.map((S, i) => (
                                         <tr className="border-b border-dotted border-[#c2c2c2] pb-1 last:text-[#00509d] last:border-none last:font-semibold">
