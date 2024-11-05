@@ -20,9 +20,9 @@ def vandermonde(x, y):
     pol_str = ""
     for i in range(n):
         if i == n - 1:
-            pol_str += f"{pol[i]:.4f}"
+            pol_str += f"{pol[i]:.4f}x^{n - i - 1}"
         else:
-            pol_str += f"{pol[i]:.4f}x^{n - i} + "
+            pol_str += f"{pol[i]:.4f}x^{n - i - 1} + "
 
     x_vals = np.linspace(min(x), max(x), 500)
     y_vals = np.polyval(pol, x_vals)
