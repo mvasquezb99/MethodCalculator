@@ -32,18 +32,13 @@ def newton_interpolation(x_str, y_str):
     pol_str = ""
     for i in range(n):
         if i == n - 1:
-            pol_str += f"{pol[i]:.4f}"
+            pol_str += f"{pol[i]:.4f}x^{n - i - 1}"
         else:
-            pol_str += f"{pol[i]:.4f}x^{n - i} + "
-
-    x_vals = np.linspace(min(x), max(x), 500)
-    y_vals = np.polyval(pol, x_vals)
+            pol_str += f"{pol[i]:.4f}x^{n - i - 1} + "
 
     return jsonify(
         {
             "pol": pol_str,
-            "x_vals": x_vals.tolist(),
-            "y_vals": y_vals.tolist(),
             "status": 200,
         }
     )

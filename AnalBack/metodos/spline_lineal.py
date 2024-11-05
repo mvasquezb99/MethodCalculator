@@ -38,20 +38,12 @@ def spline_lineal(x_str, y_str):
 
     # Reshape 'val' to a (n-1) x (d+1) matrix and transpose it
     Tabla = val.reshape(n - 1, d + 1).T
-    x_vals = np.linspace(x[0], x[-1], 1000)  # Fine grid of x values for smooth plot
-    y_vals = np.zeros_like(x_vals)
 
     # Compute the polynomial values for each interval
     for i in range(n - 1):
         # Extract coefficients for the i-th interval
         a_i = Tabla[0, i]  # Slope of the line
         b_i = Tabla[1, i]  # Intercept
-
-        # Get the range of x values for this interval
-        x_range = (x_vals >= x[i]) & (x_vals <= x[i + 1])
-
-        # Compute the polynomial values for this interval
-        y_vals[x_range] = a_i * x_vals[x_range] + b_i
 
         # Print the polynomial function for the interval
         if i == n - 2:  # Last segment
@@ -62,10 +54,8 @@ def spline_lineal(x_str, y_str):
 
     return jsonify(
         {
-            "pol_arr": polinomios,
+            "pol": polinomios,
             "pol_range": polinomios_range,
-            "x_vals": x_vals.tolist(),
-            "y_vals": y_vals.tolist(),
             "status": 200,
         }
     )
