@@ -19,7 +19,8 @@ function Method({ method_route, method_name, get_active_method, type }) {
 
         const ans = await axios.post(`http://localhost:5000/${method_route}`, { input })
         setMethod_answer(ans.data);
-
+        console.log(ans.data);
+        
         const math = create(all);
         
         if (type === "regular") {

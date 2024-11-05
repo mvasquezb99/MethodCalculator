@@ -19,6 +19,7 @@ function App() {
   ['Vandermonte', 'vandermonde' , 'polinomial'],
   ['Interpolación de Newton', 'newton_interpol' , 'polinomial'],
   ['Interpolación de Larange', 'lagrange_interpol' , 'polinomial'],
+  ['Spline lineal', 'spline_lineal', 'polinomial'],
   ['Spline cubica', 'spline_cubica' , 'polinomial'],
   
   ]; // Refactorizar a objeto, soy una gueva 
