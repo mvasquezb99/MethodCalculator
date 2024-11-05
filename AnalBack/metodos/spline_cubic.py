@@ -94,7 +94,7 @@ def spline_cubic(x_str, y_str):
 
         # Print the polynomial function for the interval
         polinomios.append(
-            f"f(x) = {a_i:.2f} * x^3 + {b_i:.2f} * x^2 + {c_i:.2f} * x + {d_i:.2f}"
+            f"{a_i:.2f} * x^3 + {b_i:.2f} * x^2 + {c_i:.2f} * x + {d_i:.2f}"
         )
         polinomios_range.append(f"{x[i]} <= x < {x[i + 1]}")
 

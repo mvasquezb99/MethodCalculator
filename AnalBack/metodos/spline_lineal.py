@@ -47,9 +47,9 @@ def spline_lineal(x_str, y_str):
 
         # Print the polynomial function for the interval
         if i == n - 2:  # Last segment
-            polinomios.append(f"f(x) = {a_i:.2f} * x + {b_i:.2f}")
+            polinomios.append(f"{a_i:.2f} * x + {b_i:.2f}")
         else:
-            polinomios.append(f"f(x) = {a_i:.2f} * x + {b_i:.2f}")
+            polinomios.append(f"{a_i:.2f} * x + {b_i:.2f}")
         polinomios_range.append(f"{x[i]} <= x < {x[i + 1]}")
 
     return jsonify(
