@@ -23,10 +23,10 @@ function InputGroup({ method_obj, update_data, method_type }) {
                 return is_title ? "Grados de relajación" : "2"
             case "x":
                 type = "text"
-                return is_title ? "Valores de x" : " 0;2;3;1"
+                return is_title ? "Valores de x" : " 0 2 3 1"
             case "y":
                 type = "text"
-                return is_title ? "Valores de f(x)" : "0.4;0.2;0.1;0.9"
+                return is_title ? "Valores de f(x)" : "0.4 0.2 0.1 0.9"
             case "fx":
                 type = "text"
                 return is_title ? "Función" : "exp(-x)+4"

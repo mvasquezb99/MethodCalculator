@@ -1,0 +1,8 @@
+.HomePage{
+    background-position: center;
+    background-size: contain;   
+}
+
+.HomePage{
+    background-image: url('/src/assets/endless-constellation.svg');
+}

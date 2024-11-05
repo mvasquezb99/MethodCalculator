@@ -19,7 +19,8 @@ function Method({ method_route, method_name, get_active_method, type }) {
 
         const ans = await axios.post(`http://localhost:5000/${method_route}`, { input })
         setMethod_answer(ans.data);
-
+        console.log(ans.data);
+        
         const math = create(all);
         
         if (type === "regular") {
@@ -41,8 +42,6 @@ function Method({ method_route, method_name, get_active_method, type }) {
             if (matrix.length === 2) {
                 let matrix_cpy = matrix;
                 let b = input["b"].split(";");
-                console.log(matrix);
-
                 for (let i = 0; i < matrix.length; i++) {
                     matrix_cpy = matrix[i].split(" ");
                     calculator.setExpression({ id: `AnswGraph_${i}`, latex: `${matrix_cpy[0]}x + ${matrix_cpy[1]}y = ${b[i]}` });
