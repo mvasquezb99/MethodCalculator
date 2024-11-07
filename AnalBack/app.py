@@ -159,7 +159,7 @@ def newton_mod1_route():
             }
         )
     else:
-        fx = request.get_json()["fx"]
+        fx = request.get_json()["input"]["fx"]
         x0 = float(request.get_json()["input"]["x0"])
         m = float(request.get_json()["input"]["m"])
         tol = float(request.get_json()["input"]["tol"])

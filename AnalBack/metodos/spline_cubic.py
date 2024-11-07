@@ -1,5 +1,6 @@
 import numpy as np
 from flask import jsonify
+from sympy import pprint
 
 
 def spline_cubic(x_str, y_str):
@@ -8,6 +9,17 @@ def spline_cubic(x_str, y_str):
     d = 3
     x = np.array([float(num) for num in x_str.split()])
     y = np.array([float(num) for num in y_str.split()])
+
+    dict_xy = {}
+    for i in range(len(x)):
+        dict_xy[x[i]] = y[i]
+
+    dict_xy = dict(sorted(dict_xy.items()))
+    pprint(dict_xy)
+
+    x = np.array(list(dict_xy.keys()))
+    y = np.array(list(dict_xy.values()))
+
     cua = x**2
     cub = x**3  # Cube of x elements
 
@@ -20,11 +32,11 @@ def spline_cubic(x_str, y_str):
 
     # First loop: fill A and b for i = 1 to n-1
     for i in range(n - 1):
-        A[h, c] = cub[i]  # cub(i) in MATLAB corresponds to cub[i] in Python
-        A[h, c + 1] = cua[i]  # cua(i) in MATLAB corresponds to cua[i] in Python
-        A[h, c + 2] = x[i]  # x(i) in MATLAB corresponds to x[i] in Python
-        A[h, c + 3] = 1  # Constant term
-        b[h] = y[i]  # b(i) in MATLAB corresponds to b[h] in Python
+        A[i, c] = cub[i]  # cub(i) in MATLAB corresponds to cub[i] in Python
+        A[i, c + 1] = cua[i]  # cua(i) in MATLAB corresponds to cua[i] in Python
+        A[i, c + 2] = x[i]  # x(i) in MATLAB corresponds to x[i] in Python
+        A[i, c + 3] = 1  # Constant term
+        b[i] = y[i]  # b(i) in MATLAB corresponds to b[h] in Python
         c += 4
         h += 1
 
@@ -93,10 +105,11 @@ def spline_cubic(x_str, y_str):
         d_i = Tabla[3, i]  # Constant coefficient
 
         # Print the polynomial function for the interval
-        polinomios.append(
-            f"{a_i:.2f} * x^3 + {b_i:.2f} * x^2 + {c_i:.2f} * x + {d_i:.2f}"
-        )
+        polinomios.append(f"{a_i} * x^3 + {b_i} * x^2 + {c_i} * x + {d_i}")
         polinomios_range.append(f"{x[i]} <= x < {x[i + 1]}")
+
+    print(polinomios)
+    print(polinomios_range)
 
     return jsonify(
         {
