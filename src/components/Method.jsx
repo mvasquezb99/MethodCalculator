@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MethodForm from "./MethodForm";
 import Table from "./Table";
-import { parse, all, create, log } from 'mathjs';
+import { all, create, rightArithShift } from 'mathjs';
 
 function Method({ method_route, method_name, get_active_method, type }) {
     const [method_data, setMethod_data] = useState({});
@@ -18,25 +18,55 @@ function Method({ method_route, method_name, get_active_method, type }) {
         input["use_cs"] = "on" ? "1" : "0";
 
         const ans = await axios.post(`http://localhost:5000/${method_route}`, { input })
-        setMethod_answer(ans.data);
-        console.log(ans.data);
+        setMethod_answer(ans.data); 
         
         const math = create(all);
-        
+        let latex;
         if (type === "regular") {
             let func = input.fx;
             func = func.replace(/\*\*/g, '^');
             const node = math.parse(func);
-            const latex = node.toTex();
+            latex = node.toTex();
             calculator.setExpression({ id: 'AnswGraph', latex: `f(x) = ${latex}` });
             calculator.setExpression({ id: 'AnswPoint', latex: `(${ans.data.Xm[ans.data.Xm.length - 1]},0)`, lineStyle: Desmos.Styles.DASHED });
         } else if (type === "polinomial") {
             let pol = ans.data["pol"];
-            pol = pol.replace(/\*\*/g, '^');
-            const node = math.parse(pol);
-            let latex = node.toTex();
-            latex = latex.replace(/~/g, "");
-            calculator.setExpression({ id: 'AnswGraph', latex: `f(x) = ${latex}` });
+            let x = input["x"].split(" ");
+            let x_cpy = input["x"].split(" ");
+            let y = input["y"].split(" ");
+            
+            let pol_cpy;
+            if(typeof(pol) === "string"){
+                pol = pol.replace(/\*\*/g, '^');
+                const node = math.parse(pol);
+                latex = node.toTex();
+
+                let x_sorted = x_cpy;
+                x_sorted = x_sorted.sort();
+
+                latex = latex.replace(/~/g, "");
+                calculator.setExpression({ id: 'AnswGraph', latex: `\\left\\{ ${x_sorted[0]} \\le x \\le ${x_sorted[x_sorted.length-1]} : ${latex} \\right\\}` });
+            } else {
+                let range = ans.data["pol_range"]
+                let range_cpy;
+                for(let i = 0; i < pol.length ; i++){
+                    pol_cpy = pol[i].replace(/\*\*/g, '^');
+                    range_cpy = range[i];
+                    const node = math.parse(pol_cpy);
+                    const node_ = math.parse(range_cpy);
+                    latex = node.toTex();
+                    let latex_range = node_.toTex();
+                    console.log(latex_range);
+                    
+                    latex = latex.replace(/~/g, "");
+                    
+                    calculator.setExpression({ id: `AnsGraph${i}`, latex: `\\left\\{ ${latex_range} : ${latex}, 0 \\right\\}` });
+                }
+            }
+              
+            for (let i = 0; i < x.length; i++) {
+                calculator.setExpression({id:`p${i}`, latex: `(${x[i]},${y[i]})`});                
+            }
         } else if (type === "matrix") {
             let matrix = input["A"].split(";");
             if (matrix.length === 2) {
@@ -48,9 +78,6 @@ function Method({ method_route, method_name, get_active_method, type }) {
                 }
             }
         }
-
-        
-
     }
 
     const create_desmos = () => {

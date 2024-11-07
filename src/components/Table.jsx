@@ -39,7 +39,11 @@ function Table({ data, type }) {
                                 {
                                     data.S.map((S, i) => (
                                         <tr className="border-b border-dotted border-[#c2c2c2] pb-1 last:text-[#00509d] last:border-none last:font-semibold">
-                                            <td className="text-start overflow-hidden text-xs">{S}</td>
+                                            <td className="text-start overflow-hidden">
+                                                {S.map((e) => (
+                                                    e+""
+                                                ))}
+                                            </td>
                                             <td className="text-start overflow-hidden">{data.E[i]}</td>
                                         </tr>
                                     ))
