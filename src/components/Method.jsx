@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MethodForm from "./MethodForm";
 import Table from "./Table";
-import { all, create, rightArithShift } from 'mathjs';
+import { all, create, log, rightArithShift, typeOf } from 'mathjs';
 
 function Method({ method_route, method_name, get_active_method, type }) {
     const [method_data, setMethod_data] = useState({});
@@ -18,8 +18,10 @@ function Method({ method_route, method_name, get_active_method, type }) {
         input["use_cs"] = "on" ? "1" : "0";
 
         const ans = await axios.post(`http://localhost:5000/${method_route}`, { input })
-        setMethod_answer(ans.data); 
-        
+        setMethod_answer(ans.data);
+
+        console.log("DATA:\n" + ans.data + "\n" + typeOf(ans.data));
+
         const math = create(all);
         let latex;
         if (type === "regular") {
@@ -34,9 +36,9 @@ function Method({ method_route, method_name, get_active_method, type }) {
             let x = input["x"].split(" ");
             let x_cpy = input["x"].split(" ");
             let y = input["y"].split(" ");
-            
+
             let pol_cpy;
-            if(typeof(pol) === "string"){
+            if (typeof (pol) === "string") {
                 pol = pol.replace(/\*\*/g, '^');
                 const node = math.parse(pol);
                 latex = node.toTex();
@@ -45,11 +47,11 @@ function Method({ method_route, method_name, get_active_method, type }) {
                 x_sorted = x_sorted.sort();
 
                 latex = latex.replace(/~/g, "");
-                calculator.setExpression({ id: 'AnswGraph', latex: `\\left\\{ ${x_sorted[0]} \\le x \\le ${x_sorted[x_sorted.length-1]} : ${latex} \\right\\}` });
+                calculator.setExpression({ id: 'AnswGraph', latex: `\\left\\{ ${x_sorted[0]} \\le x \\le ${x_sorted[x_sorted.length - 1]} : ${latex} \\right\\}` });
             } else {
                 let range = ans.data["pol_range"]
                 let range_cpy;
-                for(let i = 0; i < pol.length ; i++){
+                for (let i = 0; i < pol.length; i++) {
                     pol_cpy = pol[i].replace(/\*\*/g, '^');
                     range_cpy = range[i];
                     const node = math.parse(pol_cpy);
@@ -57,15 +59,15 @@ function Method({ method_route, method_name, get_active_method, type }) {
                     latex = node.toTex();
                     let latex_range = node_.toTex();
                     console.log(latex_range);
-                    
+
                     latex = latex.replace(/~/g, "");
-                    
+
                     calculator.setExpression({ id: `AnsGraph${i}`, latex: `\\left\\{ ${latex_range} : ${latex}, 0 \\right\\}` });
                 }
             }
-              
+
             for (let i = 0; i < x.length; i++) {
-                calculator.setExpression({id:`p${i}`, latex: `(${x[i]},${y[i]})`});                
+                calculator.setExpression({ id: `p${i}`, latex: `(${x[i]},${y[i]})` });
             }
         } else if (type === "matrix") {
             let matrix = input["A"].split(";");

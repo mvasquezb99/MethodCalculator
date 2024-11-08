@@ -27,15 +27,28 @@ def regla_falsa2(fx, a, b, tol, n_iter):
         Fxmi.append(fxm)
         err_rel = float(100)
         E.append(err_rel)
-        while E[c] > tol and fxm != 0 and c < n_iter:
+        while (
+            E[c] > tol
+            and fxm != 0
+            and c < n_iter
+            and fxm != sp.nan
+            and fxm != oo
+            and fxm != -oo
+        ):
             if fxm < 0:
                 a = xm
                 xn = a
                 fa = float(sp.N(sp.sympify(fx).subs(x, xn)))
+                if fa == sp.nan or fa == oo or fa == -oo:
+                    fa = sys.float_info.max
+                    break
             else:
                 b = xm
                 xn = b
                 fb = float(sp.N(sp.sympify(fx).subs(x, xn)))
+                if fb == sp.nan or fb == oo or fb == -oo:
+                    fb = sys.float_info.max
+                    break
             xm_temp = xm
             xm = b - ((fb * (a - b)) / (fa - fb))
             Xmi.append(xm)

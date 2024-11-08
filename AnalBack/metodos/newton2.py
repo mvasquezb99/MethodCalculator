@@ -21,7 +21,13 @@ def nt2(fx, x0, tol, n_iter):
     while err_rel > tol and fe != 0 and c < n_iter:
         xn_new = xn - (fe / df)
         df = float(sp.N(g.subs(x, xn_new)))
+        if df == sp.nan or df == oo or df == -oo:
+            df = sys.float_info.max
+            break
         fe = float(sp.N(sp.sympify(fx).subs(x, xn_new)))
+        if fe == sp.nan or fe == oo or fe == -oo:
+            fe = sys.float_info.max
+            break
         Fn.append(fe)
         Xn.append(xn_new)
         c += 1

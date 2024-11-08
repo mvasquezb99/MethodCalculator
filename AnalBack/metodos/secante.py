@@ -27,6 +27,9 @@ def seca(fx, x0, x1, tol, n_iter):
         x1 = xn
         f0 = f1
         f1 = float(sp.N(sp.sympify(fx).subs(x, xn)))
+        if f1 == sp.nan or f1 == oo or f1 == -oo:
+            f1 = sys.float_info.max
+            break
         Fn.append(f1)
         Xn.append(xn)
         c += 1

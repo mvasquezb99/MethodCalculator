@@ -1,3 +1,5 @@
+import sys
+
 import sympy as sp
 from flask import jsonify
 from sympy import *
@@ -23,7 +25,13 @@ def mnt(fx, m, x0, tol, n_iter):
     while errR > tol and fe != 0 and c < n_iter:
         xn = xn - (m * (fe / df))
         df = float(sp.N(g.subs(x, xn)))
+        if df == sp.nan or df == oo or df == -oo:
+            df = sys.float_info.max
+            break
         fe = float(sp.N(sp.sympify(fx).subs(x, xn)))
+        if fe == sp.nan or fe == oo or fe == -oo:
+            fe = sys.float_info.max
+            break
         Fn.append(fe)
         Xn.append(xn)
         c += 1
