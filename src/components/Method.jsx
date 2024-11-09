@@ -20,8 +20,6 @@ function Method({ method_route, method_name, get_active_method, type }) {
         const ans = await axios.post(`http://localhost:5000/${method_route}`, { input })
         setMethod_answer(ans.data);
 
-        console.log("DATA:\n" + ans.data + "\n" + typeOf(ans.data));
-
         const math = create(all);
         let latex;
         if (type === "regular") {

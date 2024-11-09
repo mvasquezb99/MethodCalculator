@@ -18,6 +18,7 @@ function MethodForm({ method_obj, put_method, method_type }) {
 
         for (const key in input) {
             if (key !== "use_cs" && input[key] === "") {
+                set_errormssg("Te faltan datos por llenar");
                 return false;
             }
         }
