@@ -21,6 +21,14 @@ function MethodForm({ method_obj, put_method, method_type }) {
                 set_errormssg("Te faltan datos por llenar");
                 return false;
             }
+            if (key === "n_iter" && input[key] < 0) {
+                set_errormssg("Las iteraciones no pueden ser negativas.")
+                return false;
+            }
+            if (key === "tol" && input[key] < 0) {
+                set_errormssg("La tolerancia del error no puede ser negativa")
+                return false;
+            }
         }
 
         switch (method_type) {
@@ -31,7 +39,7 @@ function MethodForm({ method_obj, put_method, method_type }) {
                 let matrix = input["A"].split(";");
                 let b = input["b"].split(";");
                 let x0 = input["x0"].split(";");
-        
+
                 let length_ = matrix.length;
                 let matrix_cpy = matrix;
 
@@ -46,7 +54,7 @@ function MethodForm({ method_obj, put_method, method_type }) {
                     }
                 }
 
-                if(b.length !== length_ || x0.length !== length_) {
+                if (b.length !== length_ || x0.length !== length_) {
                     set_errormssg("El vector b o el X0 no cumplen con las dimensiones correctas.")
                     return false
                 }
@@ -81,7 +89,7 @@ function MethodForm({ method_obj, put_method, method_type }) {
     useEffect(() => {
         set_errormssg("");
 
-    },[method_obj])
+    }, [method_obj])
 
     return (
         <div className="rounded-md p-2 border border-[#c2c2c2] h-fit">

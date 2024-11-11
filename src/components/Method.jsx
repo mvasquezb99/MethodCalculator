@@ -140,7 +140,7 @@ function Method({ method_route, method_name, get_active_method, type }) {
                 {method_name}
             </h1>
             <h2 className="text-2xl text-gray-500 text-opacity-100">Explicación</h2>
-            <p className="mt-3 border-b-2 border-dotted pb-6 w-fit text-justify">
+            <p className="mt-3 border-b-2 border-dotted pb-6 w-fit text-justify text-xl">
                 {method_data["explicacion"]}
             </p>
             <h2 className="text-2xl text-gray-500 text-opacity-100 mt-3">Calculadora</h2>
@@ -151,7 +151,7 @@ function Method({ method_route, method_name, get_active_method, type }) {
             <section className="w-full h-[93vh] flex flex-col mt-3 justify-start items-start ">
                 <div id='calculatorWrapper' className="h-fit w-full flex flex-col items-start justify-start">
                     <h2 className="text-2xl text-gray-500 text-opacity-100">Grafica</h2>
-                    <p className="mt-3 border-b-2 border-dotted pb-3 w-full text-justify">Recuerda acomodar la grafica en la zona deseada antes de descargar el SVG</p>
+                    <p className="mt-3 border-b-2 border-dotted pb-3 w-full text-justify text-xl">Recuerda acomodar la grafica en la zona deseada antes de descargar el SVG</p>
                 </div>
                 <button onClick={get_svg_graph} download="graph-screenshot.svg" className="bg-[#00509d] p-1.5 rounded-lg w-fit mt-2 text-white">Descarga el SVG</button>
             </section>
