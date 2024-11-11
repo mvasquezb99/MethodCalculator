@@ -51,7 +51,7 @@ def mat_scidel2(A, b, x0, tol, n_iter):
             }
         )
     else:
-        msg = "la solucion no converge con numero de iteraciones:", c
+        msg = "la solucion no converge con numero de iteraciones: " + str(c)
         radio_espectral = np.max(np.abs(np.linalg.eigvals(T)))
         return jsonify(
             {
