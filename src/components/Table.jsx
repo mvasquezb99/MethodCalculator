@@ -18,6 +18,7 @@ function Table({ data, type }) {
                                     </> : type === "matrix" ? <>
                                         <th className="text-start">Evaluaciones f(x)</th>
                                         <th className="text-start">Error</th>
+                                        <th className="text-start">Radio espectral</th>
                                     </> : <></>
                                 }
                             </tr>
@@ -45,6 +46,7 @@ function Table({ data, type }) {
                                                 ))}
                                             </td>
                                             <td className="text-start overflow-hidden">{data.E[i]}</td>
+                                            {i === data.S.length-1 ? <td className="text-start font-bold overflow-hidden text-[#00509d]">{data["RE"]}</td>: "" }
                                         </tr>
                                     ))
                                 }
