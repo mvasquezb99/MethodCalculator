@@ -65,8 +65,11 @@ function Table({ data, type }) {
                             <div className="w-full h-full flex flex-col justify-center items-center">
                                 <h1 className="text-3xl text-red-700">Oops nos encotramos con un error!</h1>
                                 <small className="text-red-700">{data.message}</small>
-                            </div> : <></>
-            }
+                            </div> : 
+                            <div className="w-full h-full flex flex-col justify-center items-center">
+                                <h1 className="text-3xl text-red-700">Oops nos encotramos con un error!</h1>
+                            </div>
+            } : 
         </div>
     )
 }

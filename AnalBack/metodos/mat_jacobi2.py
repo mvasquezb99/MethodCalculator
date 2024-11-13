@@ -54,7 +54,7 @@ def mat_jacobi2(A, b, x0, tol, n_iter):
         radio_espectral = np.max(np.abs(np.linalg.eigvals(T)))
         return jsonify(
             {
-                "msg": msg,
+                "message": msg,
                 "status": 400,
                 "S": S,
                 "E": E,

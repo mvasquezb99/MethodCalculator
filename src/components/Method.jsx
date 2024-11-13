@@ -19,7 +19,8 @@ function Method({ method_route, method_name, get_active_method, type }) {
 
         const ans = await axios.post(`http://localhost:5000/${method_route}`, { input })
         setMethod_answer(ans.data);
-
+        console.log(ans.data);
+        
         const math = create(all);
         let latex;
         if (type === "regular") {
@@ -27,15 +28,17 @@ function Method({ method_route, method_name, get_active_method, type }) {
             func = func.replace(/\*\*/g, '^');
             const node = math.parse(func);
             latex = node.toTex();
-            calculator.setExpression({ id: 'AnswGraph', latex: `f(x) = ${latex}` });
+            console.log(latex);
+            
+            calculator.setExpression({ id: 'AnswGraph', latex: `${latex}` });
             calculator.setExpression({ id: 'AnswPoint', latex: `(${ans.data.Xm[ans.data.Xm.length - 1]},0)`, lineStyle: Desmos.Styles.DASHED });
         } else if (type === "polinomial") {
             let pol = ans.data["pol"];
             let x = input["x"].split(" ");
             let x_cpy = input["x"].split(" ");
             let y = input["y"].split(" ");
-
             let pol_cpy;
+
             if (typeof (pol) === "string") {
                 pol = pol.replace(/\*\*/g, '^');
                 const node = math.parse(pol);
