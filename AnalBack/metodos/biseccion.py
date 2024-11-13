@@ -28,14 +28,13 @@ def bisec(fx, a, b, tol, n_iter):
         err = float(100)
         E.append(err)
         while E[c] > tol and fxm != 0 and c < n_iter:
-            if fxm < 0:
-                a = xm
-                xn = a
-                fa = float(sp.N(sp.sympify(fx).subs(x, xn)))
-            else:
+            if fa * fxm < 0:
                 b = xm
-                xn = b
                 fb = float(sp.N(sp.sympify(fx).subs(x, xn)))
+            else:
+                a = xm
+                fa = float(sp.N(sp.sympify(fx).subs(x, xn)))
+
             x_temp = xm
             xm = (a + b) / 2
             Xmi.append(xm)
